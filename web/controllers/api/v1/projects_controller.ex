@@ -1,6 +1,5 @@
 defmodule Trs.Api.V1.ProjectsController do
   use Trs.Web, :controller
-  @exclude_params ["_rev", "_id", "ok", "id", "rev"]
 
   plug :scrub_params, "id"
   plug :scrub_params, "params" when action in [:create, :update]
@@ -35,19 +34,4 @@ defmodule Trs.Api.V1.ProjectsController do
       Trs.Couchdb.Http.delete!(id <> "/project?rev=#{rev}", [])
     render_json(body, status_code, conn)
   end
-
-  defp render_json(body, status_code, conn) do
-    body = Poison.decode!(body)
-    if status_code in 200..299 do
-      body = Dict.drop(body, @exclude_params)
-      conn
-      |> put_status(status_code)
-      |> json body
-    else
-      conn
-      |> put_status(status_code)
-      |> json %{}
-    end
-  end
-
 end

@@ -9,5 +9,6 @@ defmodule Trs.Router do
   scope @api_scope, Trs do
     pipe_through :api
     resources "/projects", Api.V1.ProjectsController
+    resources "/languages", Api.V1.LanguagesController
   end
 end

@@ -12,12 +12,12 @@ defmodule Trs.Api.V1.ProjectsControllerTest do
   end
 
   test "returns project" do
-    create_project!(@project,  "project", %{users: ["token1"]})
+    create_document!(@project,  "project", %{users: ["token1"]})
     conn = conn
       |> get(projects_path(conn, :show, @project))
 
     response = json_api_response(conn, 200)
-    delete_project!(@project, "project")
+    delete_document!(@project, "project")
     assert response["users"] == ["token1"]
   end
 
@@ -35,15 +35,15 @@ defmodule Trs.Api.V1.ProjectsControllerTest do
   end
 
   test "updates project" do
-    create_project!(@project,  "project", %{users: ["token3"]})
+    create_document!(@project,  "project", %{users: ["token3"]})
     conn = conn
       |> put("/api/v1/projects/#{@project}", %{params: %{users: ["token4"]}})
-    delete_project!(@project, "project")
+    delete_document!(@project, "project")
     assert json_api_response(conn, 201)
   end
 
   test "delete project" do
-    create_project!(@project,  "project", %{users: ["token5"]})
+    create_document!(@project,  "project", %{users: ["token5"]})
     conn = conn
       |> delete("/api/v1/projects/#{@project}")
     assert json_api_response(conn, 200)
