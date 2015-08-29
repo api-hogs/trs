@@ -3,6 +3,8 @@
 /db
 /deps
 /*.ez
+couchdb.stderr
+couchdb.stdout
 
 # Generate on crash by the VM
 erl_crash.dump

@@ -25,6 +25,36 @@ defmodule Trs.ConnCase do
 
       # The default endpoint for testing
       @endpoint Trs.Endpoint
+
+      def json_api_response(conn, status) do
+        body = response(conn, status)
+        case Poison.decode(body) do
+          {:ok, body} ->
+            body
+          {:error, {:invalid, token}} ->
+            raise "could not decode JSON body, invalid token #{inspect token} in body:\n\n#{body}"
+        end
+      end
+
+      def create_project!(db, id, body) do
+        path = "#{db}/#{id}"
+        Trs.Couchdb.Http.request(:delete, path)
+        %HTTPoison.Response{body: response, status_code: status_code} =
+          Trs.Couchdb.Http.put!(path, Poison.encode!(body))
+        Poison.decode!(response)["rev"]
+      end
+
+      def delete_project!(db, id, rev) do
+        path = db <> "/" <> id <> "?rev=" <> rev
+        Trs.Couchdb.Http.request(:delete, path)
+      end
+
+      def delete_project!(db, id) do
+        %HTTPoison.Response{body: body} =
+          Trs.Couchdb.Http.get!(db <> "/languages", [])
+        rev = Poison.decode!(body)["_rev"]
+        delete_project!(db, id, rev)
+      end
     end
   end
 

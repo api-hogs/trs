@@ -17,7 +17,7 @@ defmodule Trs.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {Trs, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger ]]
+     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :httpoison ]]
   end
 
   # Specifies which paths to compile per environment
@@ -31,6 +31,8 @@ defmodule Trs.Mixfile do
     [{:phoenix, "~> 1.0.0"},
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:httpoison, "~> 0.7.2"}
+   ]
   end
 end
