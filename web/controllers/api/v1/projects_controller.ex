@@ -5,33 +5,23 @@ defmodule Trs.Api.V1.ProjectsController do
   plug :scrub_params, "params" when action in [:create, :update]
 
   def show(conn, %{"id" => id}) do
-    %HTTPoison.Response{body: body, status_code: status_code} =
-      Trs.Couchdb.Http.get!(id <> "/project", [])
+    {body, status_code} = Trs.Couchdb.Utils.get_doc(id <> "/project")
     render_json(body, status_code, conn)
   end
 
   def create(conn, %{"id" => id, "params" => params}) do
     Trs.Couchdb.Http.request(:put, id)
-    %HTTPoison.Response{body: body, status_code: status_code} =
-      Trs.Couchdb.Http.put!(id <> "/project", Poison.encode!(params))
+    {body, status_code} = Trs.Couchdb.Utils.create_doc(id <> "/project", params)
     render_json(body, status_code, conn)
   end
 
   def update(conn, %{"id" => id, "params" => params}) do
-    %HTTPoison.Response{body: body} =
-      Trs.Couchdb.Http.get!(id <> "/project", [])
-    rev = Poison.decode!(body)["_rev"]
-    %HTTPoison.Response{body: body, status_code: status_code} =
-      Trs.Couchdb.Http.put!("#{id}/project?rev=#{rev}", Poison.encode!(params))
+    {body, status_code} = Trs.Couchdb.Utils.update_doc(id <> "/project", params)
     render_json(body, status_code, conn)
   end
 
   def delete(conn, %{"id" => id}) do
-    %HTTPoison.Response{body: body} =
-      Trs.Couchdb.Http.get!(id <> "/project", [])
-    rev = Poison.decode!(body)["_rev"]
-    %HTTPoison.Response{body: body, status_code: status_code} =
-      Trs.Couchdb.Http.delete!(id <> "/project?rev=#{rev}", [])
+    {body, status_code} = Trs.Couchdb.Utils.delete_doc(id <> "/project")
     render_json(body, status_code, conn)
   end
 end

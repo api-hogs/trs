@@ -39,21 +39,11 @@ defmodule Trs.ConnCase do
       def create_document!(db, id, body) do
         path = "#{db}/#{id}"
         delete_document!(db, id)
-        %HTTPoison.Response{body: response, status_code: status_code} =
-          Trs.Couchdb.Http.put!(path, Poison.encode!(body))
-        Poison.decode!(response)["rev"]
-      end
-
-      def delete_document!(db, id, rev) do
-        path = "#{db}/#{id}?rev=#{rev}"
-        Trs.Couchdb.Http.request(:delete, path)
+        Trs.Couchdb.Utils.create_doc(path, body)
       end
 
       def delete_document!(db, id) do
-        %HTTPoison.Response{body: body} =
-          Trs.Couchdb.Http.get!(db <> "/" <> id, [])
-        rev = Poison.decode!(body)["_rev"]
-        delete_document!(db, id, rev)
+        Trs.Couchdb.Utils.delete_doc(db <> "/" <> id)
       end
     end
   end
