@@ -9,14 +9,8 @@ defmodule Trs.Api.V1.LanguagesController do
     %HTTPoison.Response{body: body, status_code: status_code} =
       Trs.Couchdb.Http.get!(project <> "/_all_docs?include_docs=true", [])
     if status_code in 200..399 do
-      docs = Enum.reduce(Poison.decode!(body)["rows"], Map.new, fn(item, acc) ->
-        if item["id"] != "project" do
-          Map.put(acc, item["doc"]["_id"], Dict.drop(item["doc"], ["_id", "_rev"]))
-        else
-          acc
-        end
-      end)
-      json conn, docs
+
+      json conn, get_all_docs(body)
     else
      conn
       |> put_status(404)
@@ -67,9 +61,18 @@ defmodule Trs.Api.V1.LanguagesController do
     Dict.put(doc, h, deep_update(t, value, Dict.fetch!(doc, h)))
   end
 
-
   defp deep_update([], _value, doc) do
     doc
+  end
+
+  defp get_all_docs(body) do
+    Enum.reduce(Poison.decode!(body)["rows"], Map.new, fn(item, acc) ->
+      if item["id"] != "project" do
+        Map.put(acc, item["doc"]["_id"], Dict.drop(item["doc"], ["_id", "_rev"]))
+      else
+        acc
+      end
+    end)
   end
 
 end
