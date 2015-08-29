@@ -45,13 +45,13 @@ defmodule Trs.ConnCase do
       end
 
       def delete_project!(db, id, rev) do
-        path = db <> "/" <> id <> "?rev=" <> rev
+        path = "#{db}/#{id}?rev=#{rev}"
         Trs.Couchdb.Http.request(:delete, path)
       end
 
       def delete_project!(db, id) do
         %HTTPoison.Response{body: body} =
-          Trs.Couchdb.Http.get!(db <> "/languages", [])
+          Trs.Couchdb.Http.get!(db <> "/" <> id, [])
         rev = Poison.decode!(body)["_rev"]
         delete_project!(db, id, rev)
       end

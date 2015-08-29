@@ -8,9 +8,6 @@ defmodule Trs.Router do
 
   scope @api_scope, Trs do
     pipe_through :api
-    put "/languages", Api.V1.LanguagesController, :update
-    get "/languages", Api.V1.LanguagesController, :index
-    post "/languages", Api.V1.LanguagesController, :create
-    delete "/languages", Api.V1.LanguagesController, :destroy
+    resources "/projects", Api.V1.ProjectsController
   end
 end
