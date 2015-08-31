@@ -73,6 +73,26 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
     assert json_api_response(conn, 201)
   end
 
+  test "adds new attribute" do
+    create_document!(@project,  "project", %{users: ["token1"]})
+    create_document!(@project, "jp", %{foo: %{bar: %{foo: "bar"}}})
+    conn = conn
+      |> put(languages_path(conn, :update, "jp"), %{project: @project, params: %{key: "bar", value: "foo"}})
+    delete_document!(@project, "project")
+    delete_document!(@project, "jp")
+    assert json_api_response(conn, 201)
+  end
+
+  test "adds deep attribute" do
+    create_document!(@project,  "project", %{users: ["token1"]})
+    create_document!(@project, "jp", %{foo: %{bar: %{foo: "bar"}}})
+    conn = conn
+      |> put(languages_path(conn, :update, "jp"), %{project: @project, params: %{key: "bar.foo", value: "foo"}})
+    delete_document!(@project, "project")
+    delete_document!(@project, "jp")
+    assert json_api_response(conn, 201)
+  end
+
   test "deletes language" do
     create_document!(@project,  "project", %{users: ["token1"]})
     create_document!(@project, "jp", %{foo: %{bar: %{foo: "bar"}}})

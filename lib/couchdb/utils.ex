@@ -59,7 +59,12 @@ defmodule Trs.Couchdb.Utils do
   end
 
   defp deep_update([h|t], value, doc) do
-    Dict.put(doc, h, deep_update(t, value, Dict.fetch!(doc, h)))
+    case Dict.fetch(doc, h) do
+      {:ok, dict} ->
+        Dict.put(doc, h, deep_update(t, value, dict))
+      :error ->
+        Dict.put(doc, h, deep_update(t, value, HashDict.new))
+    end
   end
 
   defp deep_update([], _value, doc) do
