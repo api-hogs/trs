@@ -12,3 +12,11 @@ config :logger, level: :warn
 # Set a higher stacktrace during test
 config :phoenix, :stacktrace_depth, 20
 
+# Configure your database
+config :trs, Trs.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  host: "localhost",
+  database: "trs_test",
+  pool: Ecto.Adapters.SQL.Sandbox, # Use a sandbox for transactional testing
+  size: 1
+

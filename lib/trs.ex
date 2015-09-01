@@ -9,6 +9,7 @@ defmodule Trs do
     children = [
       # Start the endpoint when the application starts
       supervisor(Trs.Endpoint, []),
+      worker(Trs.Repo, []),
       # Start the Ecto repository
       # Here you could define other workers and supervisors as children
       # worker(Trs.Worker, [arg1, arg2, arg3]),

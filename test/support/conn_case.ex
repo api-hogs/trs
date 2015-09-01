@@ -21,6 +21,8 @@ defmodule Trs.ConnCase do
       use Phoenix.ConnTest
 
       alias Trs.Repo
+      import Ecto.Model
+      import Ecto.Query, only: [from: 2]
       import Trs.Router.Helpers
 
       # The default endpoint for testing
@@ -49,6 +51,9 @@ defmodule Trs.ConnCase do
   end
 
   setup tags do
+    unless tags[:async] do
+      Ecto.Adapters.SQL.restart_test_transaction(Trs.Repo, [])
+    end
     :ok
   end
 end

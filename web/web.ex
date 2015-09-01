@@ -17,6 +17,9 @@ defmodule Trs.Web do
   """
 
   def model do
+    quote do
+      use Ecto.Model
+    end
   end
 
   def controller do
@@ -24,6 +27,8 @@ defmodule Trs.Web do
       use Phoenix.Controller
 
       alias Trs.Repo
+      import Ecto.Model
+      import Ecto.Query, only: [from: 2]
       import Trs.Router.Helpers
 
       def exclude_params, do: ["_rev", "_id", "ok", "id", "rev"]
@@ -69,6 +74,8 @@ defmodule Trs.Web do
       use Phoenix.Channel
 
       alias Trs.Repo
+      import Ecto.Model
+      import Ecto.Query, only: [from: 2]
     end
   end
 

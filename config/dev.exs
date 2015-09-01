@@ -31,3 +31,10 @@ config :logger, :console, format: "[$level] $message\n"
 # Do not configure such in production as keeping
 # and calculating stacktraces is usually expensive.
 config :phoenix, :stacktrace_depth, 20
+
+# Configure your database
+config :trs, Trs.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  host: "localhost",
+  database: "trs_dev",
+  size: 10 # The amount of database connections in the pool
