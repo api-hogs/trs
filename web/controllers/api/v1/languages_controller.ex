@@ -14,22 +14,22 @@ defmodule Trs.Api.V1.LanguagesController do
 
   def show(conn, %{"project" => project, "id" => id}) do
     {body, status_code} = Trs.Couchdb.Utils.get_doc(project <> "/" <> id)
-    render_json(body, status_code, conn)
+    respond_couchdb_document(body, status_code, conn)
   end
 
   def create(conn, %{"project" => project, "id" => id, "params" => params})do
     {body, status_code} = Trs.Couchdb.Utils.create_doc(project <> "/" <> id, params)
-    render_json(body, status_code, conn)
+    respond_couchdb_document(body, status_code, conn)
   end
 
   def update(conn, %{"project" => project, "id" => id, "params" => params}) do
     {body, status_code} = Trs.Couchdb.Utils.update_doc(project <> "/" <> id, params["key"], params["value"])
-    render_json(body, status_code, conn)
+    respond_couchdb_document(body, status_code, conn)
   end
 
   def delete(conn, %{"id" => id, "project" => project}) do
     {body, status_code} = Trs.Couchdb.Utils.delete_doc(project <> "/#{id}")
-    render_json(body, status_code, conn)
+    respond_couchdb_document(body, status_code, conn)
   end
 
 end
