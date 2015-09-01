@@ -25,7 +25,6 @@ defmodule Trs.Web do
   def controller do
     quote do
       use Phoenix.Controller
-      use Trs.Couchdb.Responder
       alias Trs.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
