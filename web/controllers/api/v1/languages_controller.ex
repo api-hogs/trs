@@ -7,9 +7,7 @@ defmodule Trs.Api.V1.LanguagesController do
 
   def index(conn, %{"project" => project}) do
     {body, status_code} = Trs.Couchdb.Utils.get_all_docs(project)
-    conn
-    |> put_status(status_code)
-    |> json body
+    respond_couchdb_document(body, status_code, conn)
   end
 
   def show(conn, %{"project" => project, "id" => id}) do
