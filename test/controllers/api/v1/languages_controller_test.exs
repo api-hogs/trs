@@ -110,4 +110,15 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
     assert json_api_response(conn, 200)
   end
 
+  test "document update(bulk)" do
+    create_document!(@project,  "project", %{users: ["token1"]})
+    create_document!(@project, "jp", %{foo: %{bar: %{foo: "bar"}}})
+    conn = conn
+      |> put(languages_path(conn, :document, "jp"), %{project: @project, params: %{foo: "bar2"}})
+      |> doc
+    delete_document!(@project, "project")
+    delete_document!(@project, "jp")
+    assert json_api_response(conn, 201)
+  end
+
 end

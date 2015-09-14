@@ -40,4 +40,11 @@ defmodule Trs.Api.V1.LanguagesController do
      |> json body
   end
 
+  def document(conn, %{"id" => id, "project" => project, "params" => params}) do
+    {body, status_code} = Trs.Couchdb.Utils.update_doc(project <> "/" <> id, params)
+     conn
+     |> put_status(status_code)
+     |> json body
+  end
+
 end
