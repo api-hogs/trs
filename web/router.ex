@@ -10,5 +10,6 @@ defmodule Trs.Router do
     pipe_through :api
     resources "/projects", Api.V1.ProjectsController
     resources "/languages", Api.V1.LanguagesController
+    put "/languages/:id/document", Api.V1.LanguagesController, :document
   end
 end
