@@ -1,0 +1,19 @@
+<h1>Projects</h1>
+
+{{link-to 'Add project' 'projects.new' class='btn btn-success btn-large'}}
+
+<ul>
+  {{#each projects as |project|}}
+    <li>
+      <h2>
+        {{link-to project.title 'projects.project' project.id}}
+
+        <div class="btn-group">
+          {{link-to 'Edit' 'projects.project.edit' project.id class='btn btn-primary btn-xs'}}
+          <a href="#" {{action 'deleteProject' project}} class='btn btn-danger btn-xs'>Del</a>
+        </div>
+
+      </h2>
+    </li>
+  {{/each}}
+</ul>

@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-3">
+
+    <h1>{{project.title}}</h1>
+
+    <h2>Languages</h2>
+    <div>
+      <ul>
+        {{#each languages as |language|}}
+          <li>
+              {{link-to language.name 'projects.project.language' project.id language}}
+              <a href="#" class="btn btn-danger" {{action 'deleteLanguage' language}}>Delete</a>
+          </li>
+        {{/each}}
+        {{add-language createLanguage="createLanguage"}}
+      </ul>
+    </div>
+
+    <h2>Users</h2>
+    <div>
+      <ul>
+        {{#each project.users as |user|}}
+          <li>{{user.name}}</li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <h2>Admins</h2>
+    <div>
+      <ul>
+        {{#each project.admins as |admin|}}
+          <li>{{admin.name}}</li>
+        {{/each}}
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="col-md-9">
+    {{outlet}}
+  </div>
+</div>
+

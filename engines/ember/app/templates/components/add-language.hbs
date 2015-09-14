@@ -1,0 +1,5 @@
+{{#if isAddForm}}
+    {{input type="text" value=value}}
+    <a href="#" class="btn btn-info" {{action 'add'}}>Save</a>
+{{/if}}
+<a href="#" class="btn btn-info" {{action 'showAddForm'}}>Add</a>

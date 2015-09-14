@@ -1,0 +1,12 @@
+
+{{user.name}} - {{user.token}}
+
+<div class="btn-group">
+    <a href="#" class="btn btn-info" {{action 'edit'}}>Edit</a>
+    <a href="#" class="btn btn-danger" {{action 'remove'}}>Delete</a>
+</div>
+{{#unless isNotEditing}}
+  {{input type="text" value=user.name}}
+    <a href="#" class="btn btn-info" {{action 'generateNewToken'}}>Generate new token</a>
+    <a href="#" class="btn btn-danger" {{action 'cancel'}}>Cancel</a>
+{{/unless}}
