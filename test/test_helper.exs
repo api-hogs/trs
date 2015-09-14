@@ -1,4 +1,5 @@
-ExUnit.start
+Bureaucrat.start
+ExUnit.start(formatters: [ExUnit.CLIFormatter, Bureaucrat.Formatter])
 
 #setup db for test
 Trs.Couchdb.Http.request(:delete, "trs-db")

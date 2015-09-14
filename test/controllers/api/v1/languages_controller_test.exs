@@ -18,6 +18,7 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
 
     conn = conn
       |> get(languages_path(conn, :index), %{project: @project})
+      |> doc
 
     delete_document!(@project, "project")
     delete_document!(@project, "en")
@@ -30,6 +31,7 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
   test "gets missing project" do
     conn = conn
       |> get(languages_path(conn, :index), %{project: "missing-project"})
+      |> doc
     assert json_api_response(conn, 404)
   end
 
@@ -37,6 +39,7 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
     create_document!(@project,  "project", %{users: ["token1"]})
     conn = conn
       |> post(languages_path(conn, :create), %{project: @project, id: "en", params: %{foo: "bar"}})
+      |> doc
     assert json_api_response(conn, 201)
     delete_document!(@project, "project")
     delete_document!(@project, "en")
@@ -47,6 +50,7 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
     create_document!(@project, "en", %{foo: "bar"})
     conn = conn
       |> get(languages_path(conn, :show, "en"), %{project: @project})
+      |> doc
     response = json_api_response(conn, 200)
     delete_document!(@project, "project")
     delete_document!(@project, "en")
@@ -58,6 +62,7 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
     create_document!(@project, "en", %{foo: "bar"})
     conn = conn
       |> put(languages_path(conn, :update, "en"), %{project: @project, params: %{key: "foo", value: "bar1"}})
+      |> doc
     delete_document!(@project, "project")
     delete_document!(@project, "en")
     assert json_api_response(conn, 201)
@@ -68,6 +73,7 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
     create_document!(@project, "jp", %{foo: %{bar: %{foo: "bar"}}})
     conn = conn
       |> put(languages_path(conn, :update, "jp"), %{project: @project, params: %{key: "foo.bar.foo", value: "bar1"}})
+      |> doc
     delete_document!(@project, "project")
     delete_document!(@project, "jp")
     assert json_api_response(conn, 201)
@@ -78,6 +84,7 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
     create_document!(@project, "jp", %{foo: %{bar: %{foo: "bar"}}})
     conn = conn
       |> put(languages_path(conn, :update, "jp"), %{project: @project, params: %{key: "bar", value: "foo"}})
+      |> doc
     delete_document!(@project, "project")
     delete_document!(@project, "jp")
     assert json_api_response(conn, 201)
@@ -88,6 +95,7 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
     create_document!(@project, "jp", %{foo: %{bar: %{foo: "bar"}}})
     conn = conn
       |> put(languages_path(conn, :update, "jp"), %{project: @project, params: %{key: "bar.foo", value: "foo"}})
+      |> doc
     delete_document!(@project, "project")
     delete_document!(@project, "jp")
     assert json_api_response(conn, 201)
@@ -98,6 +106,7 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
     create_document!(@project, "jp", %{foo: %{bar: %{foo: "bar"}}})
     conn = conn
       |> delete(languages_path(conn, :delete, "jp"), %{project: @project})
+      |> doc
     assert json_api_response(conn, 200)
   end
 

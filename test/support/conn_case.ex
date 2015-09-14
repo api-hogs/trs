@@ -24,7 +24,7 @@ defmodule Trs.ConnCase do
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
       import Trs.Router.Helpers
-
+      import Bureaucrat.Helpers
       # The default endpoint for testing
       @endpoint Trs.Endpoint
 
