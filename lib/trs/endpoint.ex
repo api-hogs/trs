@@ -1,5 +1,6 @@
 defmodule Trs.Endpoint do
   use Phoenix.Endpoint, otp_app: :trs
+  plug CORSPlug
 
   socket "/socket", Trs.UserSocket
 

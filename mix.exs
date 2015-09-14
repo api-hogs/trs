@@ -36,7 +36,8 @@ defmodule Trs.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.7.2"},
-     {:bureaucrat, "~> 0.0.4"}
+     {:bureaucrat, "~> 0.0.4"},
+     {:cors_plug, "~> 0.1.3"}
    ]
   end
 end
