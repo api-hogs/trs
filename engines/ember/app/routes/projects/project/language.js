@@ -18,9 +18,7 @@ export default Ember.Route.extend({
         type: 'POST',
         data: JSON.stringify({
           project: currentProject,
-          params: {
-            data: language.data
-          },
+          params: language.data,
           id: language.id
         })
       });
