@@ -5,10 +5,13 @@ export default Ember.Controller.extend({
   actions: {
     save() {
       const project = this.get('project');
-
+      console.log(project);
       ajax('/projects', {
         type: 'POST',
-        data: JSON.stringify(project)
+        data: JSON.stringify({
+          params: {},
+          id: project.id
+        })
       }).then(() => {
         this.transitionToRoute('projects');
       });
@@ -23,9 +26,14 @@ export default Ember.Controller.extend({
     },
 
     createLanguage: function(language){
+      let currentProject = this.get('project');
       ajax(`/languages/${language}`, {
         type: 'POST',
-        data: JSON.stringify({params: {}})
+        data: JSON.stringify({
+          project: currentProject,
+          params: {},
+          id: language.id
+        })
       });
     }
   }

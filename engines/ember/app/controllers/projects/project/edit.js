@@ -25,9 +25,14 @@ export default Ember.Controller.extend({
     },
 
     createLanguage: function(language){
+      let currentProject = this.get('project');
       ajax(`/languages/${language}`, {
         type: 'POST',
-        data: JSON.stringify({params: {}})
+        data: JSON.stringify({
+          project: currentProject,
+          params: {},
+          id: language.id 
+        })
       });
     }
   }

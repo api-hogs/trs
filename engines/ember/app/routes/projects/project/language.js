@@ -13,9 +13,16 @@ export default Ember.Route.extend({
 
   actions: {
     saveLanguage: function(language){
+      let currentProject = this.get('project');
       ajax(`/languages/${this.languageId}/document`, {
         type: 'POST',
-        data: JSON.stringify(language.data)
+        data: JSON.stringify({
+          project: currentProject
+          params: {
+            data: language.data
+          },
+          id: language.id
+        })
       });
     }
   },
