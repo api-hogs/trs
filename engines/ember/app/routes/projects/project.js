@@ -9,7 +9,7 @@ export default Ember.Route.extend({
       project: ajax(projectUrl).then(payload => {
         return payload.project;
       }),
-      languages: ajax('/languages', {data: {project_id: params.project_id}}).then(payload => {
+      languages: ajax('/languages', {data: {project: params.project}}).then(payload => {
         return payload.languages;
       })
     });

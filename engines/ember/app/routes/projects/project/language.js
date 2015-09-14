@@ -6,7 +6,7 @@ export default Ember.Route.extend({
     this.languageId = params.language_id;
     let url = `/languages/${params.language_id}`;
 
-    return ajax(url).then(payload => {
+    return ajax(url, {data: {project: params.project}}).then(payload => {
       return payload.language;
     });
   },
@@ -17,7 +17,7 @@ export default Ember.Route.extend({
       ajax(`/languages/${this.languageId}/document`, {
         type: 'POST',
         data: JSON.stringify({
-          project: currentProject
+          project: currentProject,
           params: {
             data: language.data
           },
