@@ -20,10 +20,10 @@ module.exports = function(environment) {
     }
   };
 
-  ENV['simple-auth'] = {
+  ENV['ember-simple-auth'] = {
     authorizer: 'authorizer:default',
     session: 'session:default'
-  };
+  }
 
   if (environment === 'development') {
     ENV.host = 'http://localhost:4000'
@@ -42,8 +42,8 @@ module.exports = function(environment) {
 
     ENV.host = 'http://localhost:4000'
 
-    ENV['simple-auth'].crossOriginWhitelist = ['*'];
-    ENV['simple-auth-default'] = {
+    ENV['ember-simple-auth'].crossOriginWhitelist = ['*'];
+    ENV['ember-simple-auth-default'] = {
       host: 'http://localhost:4000',
       serverTokenEndpoint: '/api/v1/sessions',
       identificationField : 'email',
@@ -52,11 +52,6 @@ module.exports = function(environment) {
       authorizationHeaderName : 'Authorization',
       authorizationPrefix : 'Bearer ',
       tokenPropertyName: 'token'
-    };
-    ENV['simple-auth-social'] = {
-      host: 'http://localhost:4000',
-      signupTokenEndpoint: '/api/v1/users',
-      serverTokenEndpoint: '/api/v1/sessions',
     };
 
     // keep test console output quieter
