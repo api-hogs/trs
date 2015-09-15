@@ -14,6 +14,9 @@ export default Ember.Controller.extend({
 
         projects.removeObject(project);
       });
+    },
+    logout: function(){
+      this.get('session').invalidate();
     }
   }
 });

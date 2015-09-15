@@ -1,0 +1,30 @@
+<div class="text center">Sign up</div>
+<div class="form">
+  <form {{action 'signup' 'withDefault' on='submit'}}>
+    <div class="input">
+      {{input type="email" placeholder="Your Email" value=model.email}}
+      <br>
+      {{input type="password" placeholder="Your Password" value=model.password}}
+    </div>
+
+    <!-- There is no error place in signup form. It's for testing.-->
+    <!-- TODO css fix-->
+    {{#if model.errors}}
+      {{#each model.errors.email as |error|}}
+        <div class="error-message">
+          {{error-helper error}}
+        </div>
+      {{/each}}
+      {{#each model.errors.password as |error|}}
+        <div class="error-message">
+          {{error-helper  error}}
+        </div>
+      {{/each}}
+    {{/if}}
+
+    <div class="input">
+      <input type="submit" value="Create account" disabled={{inProcess}}>
+    </div>
+  </form>
+</div>
+

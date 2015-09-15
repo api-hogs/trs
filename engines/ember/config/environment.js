@@ -20,6 +20,11 @@ module.exports = function(environment) {
     }
   };
 
+  ENV['simple-auth'] = {
+    authorizer: 'authorizer:default',
+    session: 'session:default'
+  };
+
   if (environment === 'development') {
     ENV.host = 'http://localhost:4000'
 
@@ -36,6 +41,23 @@ module.exports = function(environment) {
     ENV.locationType = 'none';
 
     ENV.host = 'http://localhost:4000'
+
+    ENV['simple-auth'].crossOriginWhitelist = ['*'];
+    ENV['simple-auth-default'] = {
+      host: 'http://localhost:4000',
+      serverTokenEndpoint: '/api/v1/sessions',
+      identificationField : 'email',
+      passwordField : 'password',
+      refreshAccessTokens: false,
+      authorizationHeaderName : 'Authorization',
+      authorizationPrefix : 'Bearer ',
+      tokenPropertyName: 'token'
+    };
+    ENV['simple-auth-social'] = {
+      host: 'http://localhost:4000',
+      signupTokenEndpoint: '/api/v1/users',
+      serverTokenEndpoint: '/api/v1/sessions',
+    };
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;

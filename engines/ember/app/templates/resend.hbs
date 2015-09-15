@@ -1,0 +1,23 @@
+<div class="text center">Resend confirmation link</div>
+
+<div class="form">
+  <form {{action 'sendConfirmation' on='submit'}}>
+    <div class="input">
+      {{input type="email" placeholder='Your Email' value=email}}
+    </div>
+    {{#if error}}
+      <div class="error-message">{{error}}</div>
+    {{/if}}
+    <div class="input">
+      <input type="submit" value="Resend" disabled={{inProcess}}>
+    </div>
+  </form>
+</div>
+<div class="forgot">
+  <span>Forgot password?</span>
+  <a href="#">&raquo; Reset Your Password</a>
+</div>
+<div class="text center">Need an Account?</div>
+<div class="buttons">
+  {{#link-to 'signup' class="btn big"}}Sign up here{{/link-to}}
+</div>

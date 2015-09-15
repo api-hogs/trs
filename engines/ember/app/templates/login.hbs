@@ -1,0 +1,32 @@
+<div class="text center">Log in</div>
+<div class="form">
+  <form {{action 'authenticate' 'withDefault' on='submit'}}>
+    <div class="input">
+              {{input type="email" placeholder='Your Email' value=identification}}
+              <br>
+              {{input type="password" placeholder='Your Password' value=password}}
+    </div>
+    {{#if error}}
+    <div class="error-message">{{error}}</div>
+    {{/if}}
+    <div class="input">
+      <input type="submit" value="Log in" disabled={{inProcess}}>
+    </div>
+  </form>
+</div>
+<div class="forgot">
+  <span>Forgot password?</span>
+  <a href="#">&raquo; Reset Your Password</a>
+</div>
+<div class="resend">
+  <!--To prevent undefined in query-params-->
+  {{#if identification}}
+    {{#link-to 'resend' (query-params email=identification) class="blue"}} Resend confirmation link{{/link-to}}
+  {{else}}
+    {{#link-to 'resend' class="blue"}} Resend confirmation link{{/link-to}}
+  {{/if}}
+</div>
+<div class="text center">Need an Account?</div>
+<div class="buttons">
+  {{#link-to 'signup' class="btn big"}}Sign up here{{/link-to}}
+</div>
