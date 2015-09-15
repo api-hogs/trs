@@ -1,12 +1,8 @@
-<div class="text center">Sign up</div>
-<div class="form">
-  <form {{action 'signup' 'withDefault' on='submit'}}>
-    <div class="input">
-      {{input type="email" placeholder="Your Email" value=model.email}}
-      <br>
-      {{input type="password" placeholder="Your Password" value=model.password}}
-    </div>
-
+<div class="container col-sm-offset-4 col-sm-3">
+  <form class="form" {{action 'signup' 'withDefault' on='submit'}}>
+    <h2 clas="form-signin-heading">Sign up</h2>
+    {{input type="email" placeholder="Your Email" value=model.email class="form-control"}}
+    {{input type="password" placeholder="Your Password" value=model.password class="form-control"}}
     <!-- There is no error place in signup form. It's for testing.-->
     <!-- TODO css fix-->
     {{#if model.errors}}
@@ -23,7 +19,7 @@
     {{/if}}
 
     <div class="input">
-      <input type="submit" value="Create account" disabled={{inProcess}}>
+      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign up" disabled={{inProcess}}>
     </div>
   </form>
 </div>
