@@ -30,13 +30,16 @@ defmodule Trs.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [{:phoenix, "~> 1.0.0"},
-      {:phoenix_ecto, "~> 1.1.0"},
-      {:postgrex, ">= 0.0.0"},
+     {:phoenix_ecto, "~> 1.1.0"},
+     {:ecto, "~> 1.0.2"},
+     {:postgrex, ">= 0.0.0"},
+     {:phoenix_token_auth, git: "git://github.com/manukall/phoenix_token_auth"},
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.7.2"},
      {:bureaucrat, "~> 0.0.4"},
+     {:mock, "~> 0.1.0", only: :test},
      {:cors_plug, "~> 0.1.3"}
    ]
   end

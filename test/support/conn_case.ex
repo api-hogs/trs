@@ -21,12 +21,29 @@ defmodule Trs.ConnCase do
       use Phoenix.ConnTest
 
       alias Trs.Repo
+
+      alias Trs.User
+      alias PhoenixTokenAuth.Util
+      alias PhoenixTokenAuth.Authenticator
+
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
       import Trs.Router.Helpers
       import Bureaucrat.Helpers
       # The default endpoint for testing
       @endpoint Trs.Endpoint
+
+      @email "user@example.com"
+      @password "secrets"
+      @hashed_password Util.crypto_provider.hashpwsalt(@password)
+
+      def signin_user(conn) do
+        token = %User{email: @email, hashed_password: @hashed_password, confirmed_at: Ecto.DateTime.utc}
+        |> Repo.insert!
+        |> Authenticator.generate_token_for
+
+        conn |> put_req_header("authorization", "Bearer #{token}")
+      end
 
       def json_api_response(conn, status) do
         body = response(conn, status)
