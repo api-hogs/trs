@@ -2,6 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   inProcess: false,
+
+  session: Ember.inject.service('session'),
+
   withDefault: function() {
     let credentials = this.getProperties('identification', 'password');
     return this.get('session').authenticate('authenticator:default', credentials).catch((reason) => {

@@ -1,4 +1,4 @@
-import Session from 'simple-auth/session';
+import Session from 'ember-simple-auth/session';
 export default Session.extend({
   currentUser: function() {
     var userId = this.get('secure.user_id');

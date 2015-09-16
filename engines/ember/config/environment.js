@@ -17,6 +17,14 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+    contentSecurityPolicy: {
+      'script-src': "'self' 'unsafe-inline' 'unsafe-eval' use.typekit.net http://connect.facebook.net *.googleapis.com " +
+        "*.gstatic.com http://localhost:4000 https://maps.googleapis.com https://maxcdn.bootstrapcdn.com *.gstatic.com *.yandex.ru",
+      'style-src': "'self' 'unsafe-inline' use.typekit.net *.googleapis.com http://localhost:4000 http://facebook.com https://maxcdn.bootstrapcdn.com",
+      'img-src': "*",
+      'font-src': "'self' *.gstatic.com https://maxcdn.bootstrapcdn.com",
+      'connect-src': "'self' ws://localhost:35729 ws://0.0.0.0:35729 http://localhost:4000",
     }
   };
 
@@ -26,7 +34,23 @@ module.exports = function(environment) {
   }
 
   if (environment === 'development') {
+    
     ENV.host = 'http://localhost:4000'
+
+    ENV.adapterUrl = 'http://localhost:4000';
+    ENV.adapterNamespace = "/api/v1";
+
+    ENV['ember-simple-auth'].crossOriginWhitelist = ['*'];
+    ENV['ember-simple-auth-default'] = {
+      host: 'http://localhost:4000',
+      serverTokenEndpoint: '/api/v1/sessions',
+      identificationField : 'email',
+      passwordField : 'password',
+      refreshAccessTokens: false,
+      authorizationHeaderName : 'Authorization',
+      authorizationPrefix : 'Bearer ',
+      tokenPropertyName: 'token'
+    };
 
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

@@ -2,6 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   inProcess : false,
+
+  session: Ember.inject.service('session'),
+
   withDefault: function() {
     return this.get('model').save().then((user)=>{
       return this.get('session').authenticate('authenticator:default', {token: user.get('token'), user_id: user.id});

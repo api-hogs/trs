@@ -2,7 +2,7 @@ import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
 import config from '../config/environment';
 
-var Config = config['simple-auth-default'];
+var Config = config['ember-simple-auth-default'];
 
 export default Base.extend({
 
@@ -76,6 +76,7 @@ export default Base.extend({
 
   makeRequest: function(data) {
     let self  = this;
+    console.log(data);
     return Ember.$.ajax({
       url: self.getUrl(),
       method: 'POST',
