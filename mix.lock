@@ -9,6 +9,8 @@
   "hackney": {:hex, :hackney, "1.3.2"},
   "httpoison": {:hex, :httpoison, "0.7.3"},
   "idna": {:hex, :idna, "1.0.2"},
+  "inflex": {:hex, :inflex, "1.5.0"},
+  "ja_serializer": {:git, "git://github.com/AgilionApps/ja_serializer.git", "86bcfcbf6a00df3d37d4fe7848f3a38ea4514a8b", []},
   "joken": {:hex, :joken, "0.13.1"},
   "mailgun": {:hex, :mailgun, "0.1.2"},
   "meck": {:hex, :meck, "0.8.3"},

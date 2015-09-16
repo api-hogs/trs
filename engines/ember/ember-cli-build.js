@@ -12,6 +12,7 @@ module.exports = function(defaults) {
   });
 
   app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
+  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css.map');
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.js');
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.css');
 

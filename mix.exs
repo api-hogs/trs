@@ -34,6 +34,7 @@ defmodule Trs.Mixfile do
      {:ecto, "~> 1.0.2"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_token_auth, git: "git://github.com/manukall/phoenix_token_auth"},
+     {:ja_serializer, git: "git://github.com/AgilionApps/ja_serializer.git"},
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},

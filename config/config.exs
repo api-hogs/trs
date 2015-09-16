@@ -24,6 +24,11 @@ config :joken,
   json_module: PhoenixTokenAuth.PoisonHelper,
   algorithm: :HS256 # Optional. defaults to :HS256
 
+config :plug, :mimes, %{
+  "application/vnd.api+json" => ["json-api"]
+}
+config :phoenix, :format_encoders, "json-api": Poison
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

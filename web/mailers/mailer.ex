@@ -1,5 +1,5 @@
 defmodule Trs.Mailer do
-  @behaviour Trs.MailingBehaviour
+  @behaviour PhoenixTokenAuth.MailingBehaviour
 
   def welcome_subject(user, _conn), do: "Hello #{user.email}"
   def welcome_body(_user, _token, _conn) do

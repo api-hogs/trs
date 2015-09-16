@@ -5,17 +5,26 @@ defmodule Trs.Router do
   @api_scope "/api/v1"
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["json-api"]
   end
 
   pipeline :authenticated do
     plug PhoenixTokenAuth.Plug
   end
 
-  scope @api_scope do
+  scope @api_scope, Trs do
     pipe_through :api
+    post  "users",                 Api.V1.UsersController, :create
+    post  "users/:id/confirm",     Api.V1.UsersController, :confirm
+  end
 
-    PhoenixTokenAuth.mount
+  scope @api_scope do
+    post  "sessions",              PhoenixTokenAuth.Controllers.Sessions, :create
+    delete  "sessions",            PhoenixTokenAuth.Controllers.Sessions, :delete
+    post  "password_resets",       PhoenixTokenAuth.Controllers.PasswordResets, :create
+    post  "password_resets/reset", PhoenixTokenAuth.Controllers.PasswordResets, :reset
+    get   "account",               PhoenixTokenAuth.Controllers.Account, :show
+    put   "account",               PhoenixTokenAuth.Controllers.Account, :update
   end
 
   scope @api_scope, Trs do
