@@ -3,6 +3,7 @@ import ajax from 'trs-ember/utils/ajax';
 
 export default Ember.Route.extend({
   model(params) {
+
     let projectUrl = `/project/${params.project_id}`;
 
     return Ember.RSVP.hash({

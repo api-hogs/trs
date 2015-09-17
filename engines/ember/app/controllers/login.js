@@ -17,6 +17,7 @@ export default Ember.Controller.extend({
       this[action]().finally(() => {
         this.set('inProcess', false);
       });
+      console.log(this.get('session'));
     }
   }
 });

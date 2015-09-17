@@ -76,7 +76,6 @@ export default Base.extend({
 
   makeRequest: function(data) {
     let self  = this;
-    console.log(data);
     return Ember.$.ajax({
       url: self.getUrl(),
       method: 'POST',
