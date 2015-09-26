@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import ajax from 'trs-ember/utils/ajax';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(AuthenticatedRouteMixin, {
   model(params) {
     this.languageId = params.language_id;
     let url = `/languages/${params.language_id}`;
