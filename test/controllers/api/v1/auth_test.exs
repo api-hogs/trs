@@ -9,8 +9,10 @@ defmodule Trs.AuthTest do
 
   test "register new user" do
     with_mock Mailgun.Client, [send_email: fn _, _ -> {:ok, "response"} end] do
-      response = conn() |> post "/api/v1/users", %{user: %{email: "user212@ex.ru", password: @password}}
-      assert json_response(response, 200)
+      response = conn()
+                  |> post("/api/v1/users", %{data: %{attributes: %{email: @email, password: @password}}})
+                  |> doc
+      assert json_api_response(response, 200)
     end
   end
 
