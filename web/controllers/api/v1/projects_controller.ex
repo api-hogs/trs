@@ -4,6 +4,11 @@ defmodule Trs.Api.V1.ProjectsController do
   plug :scrub_params, "id"
   plug :scrub_params, "params" when action in [:create, :update]
 
+  def index(conn, %{}) do
+    conn
+    |> json {}
+  end
+
   def show(conn, %{"id" => id}) do
     {body, status_code} = Trs.Couchdb.Utils.get_doc(id <> "/project")
      conn

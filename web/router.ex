@@ -19,6 +19,7 @@ defmodule Trs.Router do
   end
 
   scope @api_scope do
+    pipe_through :api
     post  "sessions",              PhoenixTokenAuth.Controllers.Sessions, :create
     delete  "sessions",            PhoenixTokenAuth.Controllers.Sessions, :delete
     post  "password_resets",       PhoenixTokenAuth.Controllers.PasswordResets, :create
@@ -29,10 +30,13 @@ defmodule Trs.Router do
 
   scope @api_scope, Trs do
     pipe_through :api
-    pipe_through :authenticated
-
-    resources "/projects", Api.V1.ProjectsController
     resources "/languages", Api.V1.LanguagesController
     put "/languages/:id/document", Api.V1.LanguagesController, :document
+  end
+
+  scope @api_scope, Trs do
+    pipe_through :api
+    pipe_through :authenticated
+    resources "/projects", Api.V1.ProjectsController
   end
 end
