@@ -1,56 +1,54 @@
 defmodule Trs.Api.V1.ProjectsControllerTest do
   use Trs.ConnCase
+  alias Trs.Project
+  alias Trs.User
+  alias Trs.Repo
 
-  @project "trs-db"
 
   setup do
+    user_tmp = %User{email: "test@test.com", hashed_password: Util.crypto_provider.hashpwsalt("secrets"), confirmed_at: Ecto.DateTime.utc}
+      |> Repo.insert!
+    token_tmp = Authenticator.generate_token_for(user_tmp)
+    project = %Project{title: "test", user_id: user_tmp.id}
+      |> Repo.insert!
     conn = conn()
-            |> put_req_header("accept", "application/json")
-            # |> signin_user
+            |> put_req_header("authorization", "Bearer #{token_tmp}")
 
-    {:ok, conn: conn}
+    {:ok, conn: conn, project: project, user: user_tmp}
   end
 
-  test "returns project" do
-    create_document!(@project,  "project", %{users: ["token1"]})
+  test "returns projects", %{conn: conn} do
     conn = conn
-      |> get(projects_path(conn, :show, @project))
+      |> get(projects_path(conn, :index))
       |> doc
-
     response = json_api_response(conn, 200)
-    delete_document!(@project, "project")
-    assert response["users"] == ["token1"]
+    assert Enum.count(response["data"]) == 1
   end
 
-  test "returns 404 if project not exist" do
+  test "returns 404 if project not exist", %{conn: conn} do
     conn = conn
-      |> get(projects_path(conn, :show, "test-missing"))
+      |> get(projects_path(conn, :show, 400222))
       |> doc
-    assert json_api_response(conn, 404)
+    assert conn.status == 404
   end
 
-  test "creates project with some data" do
-    Trs.Couchdb.Http.request(:delete, "trs-my")
+  test "creates project with some data", %{conn: conn, user: user} do
     conn = conn
-      |> post(projects_path(conn, :create), %{id: "trs-my", params: %{users: ["token2"]}})
+      |> post(projects_path(conn, :create), data: %{attributes: %{title: "title", user_id: user.id}})
       |> doc
-    assert json_api_response(conn, 201)
+    assert json_api_response(conn, 200)["data"]["id"]
   end
 
-  test "updates project" do
-    create_document!(@project,  "project", %{users: ["token3"]})
+  test "updates project", %{conn: conn, project: project} do
     conn = conn
-      |> put("/api/v1/projects/#{@project}", %{params: %{users: ["token4"]}})
-      |> doc
-    delete_document!(@project, "project")
-    assert json_api_response(conn, 201)
-  end
-
-  test "delete project" do
-    create_document!(@project,  "project", %{users: ["token5"]})
-    conn = conn
-      |> delete("/api/v1/projects/#{@project}")
+      |> put(projects_path(conn, :update, project.id), %{data: %{attributes: %{title: "title2"}}})
       |> doc
     assert json_api_response(conn, 200)
+  end
+
+  test "delete project", %{conn: conn, project: project} do
+    conn = conn
+            |> delete(projects_path(conn, :delete, project))
+    refute Repo.get(Project, project.id)
   end
 end

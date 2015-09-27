@@ -9,6 +9,7 @@ defmodule Trs.User do
     field :hashed_password_reset_token, :string
     field :unconfirmed_email,           :string
     field :authentication_tokens,       {:array, :string}, default: []
+    has_many :projects, Trs.Project,    foreign_key: :user_id
 
     timestamps
   end
