@@ -1,95 +1,50 @@
-import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
-import config from '../config/environment';
-
-var Config = config['ember-simple-auth-default'];
+import Ember from 'ember';
+import ENV from '../config/environment';
 
 export default Base.extend({
+  sessionTokenEndpoint: `${ENV.adapterUrl}/api/v1/users`,
 
-  init: function() {
-    this.serverTokenEndpoint = Config.serverTokenEndpoint || '';
-    this.host = Config.host || '';
-    this.identificationField = Config.identificationField || 'username';
-    this.passwordField = Config.passwordField || 'password';
-    this.tokenPropertyName = Config.tokenPropertyName || 'token';
-    this.headers = Config.headers || {};
-  },
-
-
-  restore: function(properties) {
-    let self = this,
-        propertiesObject = Ember.Object.create(properties);
-
+  restore: function(data) {
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      if (!Ember.isEmpty(propertiesObject.get(self.tokenPropertyName))) {
-        resolve(properties);
+      if (!Ember.isEmpty(data.token)) {
+        resolve(data);
       } else {
         reject();
       }
     });
   },
 
-  authenticate: function(credentials) {
-    let self = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      if(!Ember.isEmpty(credentials.token)){
+  invalidate: function(headers) {
+    return new Ember.RSVP.Promise((resolve) => {
+      this._makeRequest(this.sessionTokenEndpoint, {}, 'DELETE', headers)
+        .always(function() {
+        resolve();
+       });
+    });
+  },
+
+  authenticate: function(credentials, headers) {
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      if (credentials.token) {
         return resolve(credentials);
       }
-      let data = self.getAuthenticateData(credentials);
-      self.makeRequest(data).then(function(response) {
-        Ember.run(function() {
-          resolve(self.getResponseData(response));
-        });
+      this._makeRequest(this.tokenEndpoint, credentials, 'POST', headers)
+      .then(function(response)  {
+        resolve({token: response.token, userId: response.user.id});
       }, function(xhr) {
-        Ember.run(function() {
-          reject(xhr.responseJSON || xhr.responseText);
-        });
+        Ember.run(null, reject, xhr.responseJSON || xhr.responseText);
       });
     });
   },
 
-  getAuthenticateData: function(credentials) {
-    let authentication = {};
-    authentication[this.passwordField] = credentials.password;
-    authentication[this.identificationField] = credentials.identification;
-    return authentication;
-  },
-
-  getResponseData: function(response) {
-    return response;
-  },
-
-  invalidate: function() {
-    let self  = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      Ember.$.ajax({
-          method: "DELETE",
-          url: self.getUrl(),
-        }).then(function(){
-          return resolve();
-        }, function () {
-          Ember.Logger.log('unsuccessed!!!');
-          return reject();
-        });
-    });
-  },
-
-  makeRequest: function(data) {
-    let self  = this;
+  _makeRequest(url, data, type = 'POST', headers = {}){
     return Ember.$.ajax({
-      url: self.getUrl(),
-      method: 'POST',
-      data: JSON.stringify(data),
-      dataType: 'json',
+      url:         url,
+      type:        type,
+      data:        JSON.stringify(data),
       contentType: 'application/json',
-      beforeSend: function(xhr, settings) {
-        xhr.setRequestHeader('Accept', settings.accepts.json);
-      },
-      headers: this.headers
+      headers: headers
     });
-  },
-
-  getUrl : function () {
-    return `${this.host}${this.serverTokenEndpoint}`;
   }
 });

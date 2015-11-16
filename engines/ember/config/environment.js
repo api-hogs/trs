@@ -29,29 +29,16 @@ module.exports = function(environment) {
   };
 
   ENV['ember-simple-auth'] = {
-    authorizer: 'authorizer:default',
-    session: 'session:default'
-  }
+    authorizer: 'authorizer:abr',
+    store: 'session-store:local-storage'
+  };
 
   if (environment === 'development') {
-    
+
     ENV.host = 'http://localhost:4000'
 
     ENV.adapterUrl = 'http://localhost:4000';
     ENV.adapterNamespace = "/api/v1";
-
-    ENV['ember-simple-auth'].crossOriginWhitelist = ['*'];
-    ENV['ember-simple-auth-default'] = {
-      host: 'http://localhost:4000',
-      serverTokenEndpoint: '/api/v1/sessions',
-      identificationField : 'email',
-      passwordField : 'password',
-      refreshAccessTokens: false,
-      authorizationHeaderName : 'Authorization',
-      authorizationPrefix : 'Bearer ',
-      tokenPropertyName: 'token'
-    };
-
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;

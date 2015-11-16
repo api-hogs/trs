@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ajax from 'trs-ember/utils/ajax';
+// import ajax from 'trs-ember/utils/ajax';
 
 export default Ember.Controller.extend({
   actions: {

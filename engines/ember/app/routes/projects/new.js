@@ -3,6 +3,6 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   setupController(controller) {
-    controller.set('project', {title: ''});
+    controller.set('project', this.get('store').createRecord('project'));
   }
 });

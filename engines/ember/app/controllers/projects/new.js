@@ -1,20 +1,9 @@
 import Ember from 'ember';
-import ajax from 'trs-ember/utils/ajax';
 
 export default Ember.Controller.extend({
   actions: {
     save() {
-      const project = this.get('project');
-      console.log(project);
-      ajax('/projects', {
-        type: 'POST',
-        data: JSON.stringify({
-          params: {},
-          id: project.id
-        })
-      }).then(() => {
-        this.transitionToRoute('projects');
-      });
+      this.get('project').save();
     },
 
     addUser: function(){

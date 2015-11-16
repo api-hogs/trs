@@ -9,6 +9,7 @@ defmodule Trs.Api.V1.UsersController do
   alias PhoenixTokenAuth.AccountUpdater
   alias Trs.Repo
   alias Trs.User
+  alias Ecto.Changeset
 
   plug :scrub_params, "data" when action in [:update]
 
@@ -21,12 +22,12 @@ defmodule Trs.Api.V1.UsersController do
   Responds with status 422 and body {errors: {field: "message"}} otherwise.
   """
   def create(conn, params = %{"data" => %{"attributes" => %{"email" => email}}}) when email != "" and email != nil do
-    {confirmation_token, changeset} = Registrator.changeset(params["data"]["attributes"])
-    |> Confirmator.confirmation_needed_changeset
+    changeset = Registrator.changeset(params["data"]["attributes"])
+    |> Changeset.put_change(:hashed_confirmation_token, nil)
+    |> Changeset.put_change(:confirmed_at, Ecto.DateTime.utc)
 
     if changeset.valid? do
       user = Util.repo.insert!(changeset)
-      Task.async(fn -> Mailer.send_welcome_email(user, confirmation_token, conn) end)
       token = Authenticator.generate_token_for(user)
       user = Map.put_new(user, :token, token)
       render(conn, "show.json-api", user: user)

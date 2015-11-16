@@ -1,12 +1,10 @@
 import Ember from 'ember';
-import ajax from 'trs-ember/utils/ajax';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
+  request: Ember.inject.service(),
   model() {
-    return ajax('/projects').then(payload => {
-      return payload.projects;
-    });
+    return this.get('store').findAll('project');
   },
 
   setupController(controller, model) {
