@@ -1,13 +1,10 @@
 defmodule Trs.Mailer do
-  alias Trs.Router.Helpers
-  alias PhoenixTokenAuthReact.Endpoint
-
   @behaviour PhoenixTokenAuth.MailingBehaviour
 
   def welcome_subject(user, _conn), do: "Hello #{user.email}"
   def welcome_body(user, token, _conn) do
     """
-    Please follow the link below:
+    Welcome to our service!
     """
   end
 
@@ -15,7 +12,7 @@ defmodule Trs.Mailer do
   def password_reset_body(user, reset_token, _conn) do
     """
     Please follow the link below:
-    #{Helpers.page_url(Endpoint, :index)}#/users/#{user.id}/reset_password/#{reset_token}
+    http://localhost:4200/resend/?token=#{reset_token}
     """
   end
 
@@ -23,7 +20,7 @@ defmodule Trs.Mailer do
   def new_email_address_body(user, confirmation_token, _conn) do
     """
     Please follow the link below:
-    #{Helpers.page_url(Endpoint, :index)}#/users/#{user.id}/confirm/#{confirmation_token}
+    http://localhost:4200/confirmation/?user=#{user.email}&token=#{confirmation_token}
     """
   end
 
