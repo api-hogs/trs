@@ -1,10 +1,13 @@
 import Ember from 'ember';
-// import ajax from 'trs-ember/utils/ajax';
 
 export default Ember.Controller.extend({
+  request: Ember.inject.service(),
+
   actions: {
     save() {
-     this.get('project').save();
+     this.get('project').save().then(() => {
+       this.transitionToRoute('index');
+     });
     },
 
     addUser: function(){
@@ -17,10 +20,10 @@ export default Ember.Controller.extend({
 
     createLanguage: function(language){
       let currentProject = this.get('project');
-      ajax(`/languages/${language}`, {
+      this.get('request').ajax(`/languages/${language}`, {
         type: 'POST',
         data: JSON.stringify({
-          project: currentProject,
+          project_id: currentProject.id,
           params: {},
           id: language.id
         })

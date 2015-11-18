@@ -13,7 +13,7 @@ export default Ember.Service.extend({
         url: fullUrl,
         type: options.type || 'GET',
         data: options.data,
-        contentType: 'application/json',
+        contentType: 'application/vnd.api+json; charset=utf-8',
         dataType: 'json',
         headers: hash,
         success: defer.resolve

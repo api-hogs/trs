@@ -1,16 +1,17 @@
 import Ember from 'ember';
-// import ajax from 'trs-ember/utils/ajax';
 
 export default Ember.Controller.extend({
+  request: Ember.inject.service(),
+
   actions: {
     createLanguage: function(language){
       let currentProject = this.get('project');
-      ajax(`/languages/${language}`, {
+      this.get('request').ajax(`/languages`, {
         type: 'POST',
         data: JSON.stringify({
-          project: currentProject,
-          params: {},
-          id: language.id
+          project: currentProject.id,
+          params: {title: language},
+          id: language
         })
       }).then(() => {
         this.get('languages').pushObject({name: language, id: language,  data: {}});
@@ -19,10 +20,10 @@ export default Ember.Controller.extend({
 
     deleteLanguage: function(language){
       let currentProject = this.get('project');
-      ajax(`/languages/${language.id}`, {
+      this.get('request').ajax(`/languages/${language.title}`, {
         type: 'DELETE',
         data: JSON.stringify({
-          project: currentProject
+          project: currentProject.id
         })
       }).then(() =>{
         this.get('languages').removeObject(language);

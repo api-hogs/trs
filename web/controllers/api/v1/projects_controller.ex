@@ -23,6 +23,7 @@ defmodule Trs.Api.V1.ProjectsController do
     changeset = Project.changeset(%Project{user_id: conn.assigns.authenticated_user.id}, params)
     if changeset.valid? do
       record = Repo.insert!(changeset)
+      Trs.Couchdb.Http.request(:put, record.title)
       render(conn, "show.json-api", project: record)
     else
       conn

@@ -30,6 +30,7 @@ defmodule Trs.Router do
 
   scope @api_scope, Trs do
     pipe_through :api
+    pipe_through :authenticated
     resources "/languages", Api.V1.LanguagesController
     put "/languages/:id/document", Api.V1.LanguagesController, :document
   end

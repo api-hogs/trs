@@ -8,8 +8,8 @@
       <ul>
         {{#each languages as |language|}}
           <li>
-              {{link-to language.name 'projects.project.language' project.id language}}
-              <a href="#" class="btn btn-danger" {{action 'deleteLanguage' language}}>Delete</a>
+              {{link-to language.id 'projects.project.language' project.id language.id}}
+              <a href="#" class="btn btn-danger" {{action 'deleteLanguage' language.id}}>Delete</a>
           </li>
         {{/each}}
         {{add-language createLanguage="createLanguage"}}
