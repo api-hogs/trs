@@ -18,7 +18,8 @@ defmodule Trs.Mixfile do
   def application do
     [mod: {Trs, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-       :httpoison,  :phoenix_ecto, :postgrex ]]
+       :httpoison,  :phoenix_ecto, :postgrex, :phoenix_token_auth,
+       :ja_serializer, :httpoison, :cors_plug ]]
   end
 
   # Specifies which paths to compile per environment
@@ -39,7 +40,7 @@ defmodule Trs.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.7.2"},
-     {:bureaucrat, "~> 0.0.4"},
+     {:bureaucrat, "~> 0.0.4", only: :test},
      {:mock, "~> 0.1.0", only: :test},
      {:cors_plug, "~> 0.1.3"}
    ]
