@@ -16,5 +16,8 @@
     "lodash": "~3.7.0",
     "jsoneditor": "4.2.1",
     "ember-addons.bs_for_ember": "~0.7.0"
+  },
+  "resolutions": {
+    "ember": "^2.0.1"
   }
 }
