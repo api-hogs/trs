@@ -29,9 +29,10 @@ export default Base.extend({
       if (credentials.token) {
         return resolve(credentials);
       }
-      this._makeRequest(this.get('sessionTokenEndpoint'), credentials, 'POST', headers)
+      credentials.email = credentials.identification;
+      this._makeRequest(`${ENV.host}/api/v1/sessions`, credentials, 'POST', headers)
       .then(function(response)  {
-        resolve({token: response.token, userId: response.user.id});
+        resolve({token: response.token});
       }, function(xhr) {
         Ember.run(null, reject, xhr.responseJSON || xhr.responseText);
       });
