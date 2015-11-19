@@ -13,12 +13,11 @@
       <ul class="nav navbar-nav">
         <li>{{link-to 'Home' 'index'}}</li>
         <li>{{link-to 'Projects' 'projects'}}</li>
-        {{#if session.isAuthenticated}} 
-          <li>{{link-to 'Sign out' 'signout'}}</li>
+        {{#if session.isAuthenticated}}
         {{else}}
           <li>{{link-to 'Sign up' 'signup'}}</li>
           <li>{{link-to 'Log in' 'login'}}</li>
-        {{/if}}  
+        {{/if}}
       </ul>
 
     </div><!--/.nav-collapse -->
