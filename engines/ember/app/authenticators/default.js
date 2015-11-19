@@ -17,7 +17,7 @@ export default Base.extend({
 
   invalidate: function(headers) {
     return new Ember.RSVP.Promise((resolve) => {
-      this._makeRequest(this.sessionTokenEndpoint, {}, 'DELETE', headers)
+      this._makeRequest(this.get('sessionTokenEndpoint'), {}, 'DELETE', headers)
         .always(function() {
         resolve();
        });
@@ -29,7 +29,7 @@ export default Base.extend({
       if (credentials.token) {
         return resolve(credentials);
       }
-      this._makeRequest(this.tokenEndpoint, credentials, 'POST', headers)
+      this._makeRequest(this.get('tokenEndpoint'), credentials, 'POST', headers)
       .then(function(response)  {
         resolve({token: response.token, userId: response.user.id});
       }, function(xhr) {
