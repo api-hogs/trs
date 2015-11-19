@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   request: Ember.inject.service(),
+  session: Ember.inject.service(),
+
   actions: {
     saveLanguage: function(){
       let currentProject = this.get('project');

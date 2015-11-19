@@ -3,8 +3,6 @@
     <h2 clas="form-signin-heading">Sign up</h2>
     {{input type="email" placeholder="Your Email" value=model.email class="form-control"}}
     {{input type="password" placeholder="Your Password" value=model.password class="form-control"}}
-    <!-- There is no error place in signup form. It's for testing.-->
-    <!-- TODO css fix-->
     {{#if model.errors}}
       {{#each model.errors.email as |error|}}
         <div class="error-message">
