@@ -29,7 +29,7 @@ module.exports = function(environment) {
   };
 
   ENV['ember-simple-auth'] = {
-    authorizer: 'authorizer:abr',
+    authorizer: 'authorizer:default',
     store: 'session-store:local-storage'
   };
 
