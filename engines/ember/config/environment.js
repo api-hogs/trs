@@ -73,8 +73,9 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    // TODO
-    // ENV.host = 'http://some.com'
+    ENV.host = 'http://api.translations.api-hogs.io'
+    ENV.adapterUrl - ENV.host;
+    ENV.adapterNamespace = "/api/v1";
 
   }
 
