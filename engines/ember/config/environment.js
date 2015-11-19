@@ -74,7 +74,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.host = 'http://api.translations.api-hogs.io'
-    ENV.adapterUrl - ENV.host;
+    ENV.adapterUrl = ENV.host;
     ENV.adapterNamespace = "/api/v1";
 
   }
