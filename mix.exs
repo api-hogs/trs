@@ -37,6 +37,7 @@ defmodule Trs.Mixfile do
      {:ja_serializer, git: "git://github.com/AgilionApps/ja_serializer.git"},
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:exrm, "~> 0.19.6"},
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.7.2"},
      {:bureaucrat, "~> 0.0.4", only: :test},
