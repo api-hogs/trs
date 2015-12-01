@@ -7,7 +7,7 @@ defmodule Trs.Api.V1.LanguagesController do
   plug :scrub_params, "params" when action in [:create, :update]
 
   def index(conn, %{"project" => project}) do
-    record = Repo.get_by(Project, user_id: conn.assigns.authenticated_user.id, id: project)
+    record = Repo.get_by(Project, id: project)
     {body, status_code} = Trs.Couchdb.Utils.get_all_docs(record.title)
     IO.inspect(status_code)
      conn
@@ -16,7 +16,7 @@ defmodule Trs.Api.V1.LanguagesController do
   end
 
   def show(conn, %{"project" => project, "id" => id}) do
-    record = Repo.get_by(Project, user_id: conn.assigns.authenticated_user.id, id: project)
+    record = Repo.get_by(Project, id: project)
     {body, status_code} = Trs.Couchdb.Utils.get_doc(record.title <> "/" <> id)
      conn
      |> put_status(status_code)
