@@ -26,12 +26,15 @@ defmodule Trs.Router do
     post  "password_resets/reset", PhoenixTokenAuth.Controllers.PasswordResets, :reset
     get   "account",               PhoenixTokenAuth.Controllers.Account, :show
     put   "account",               PhoenixTokenAuth.Controllers.Account, :update
+    get   "/languages",  Api.V1.LanguagesController, :index
+    get   "/languages/:id",  Api.V1.LanguagesController, :show
   end
 
   scope @api_scope, Trs do
     pipe_through :api
     pipe_through :authenticated
-    resources "/languages", Api.V1.LanguagesController
+    post "/languages", Api.V1.LanguagesController, :create
+    put "/languages/:id", Api.V1.LanguagesController, :update
     put "/languages/:id/document", Api.V1.LanguagesController, :document
   end
 
