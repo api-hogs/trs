@@ -16,6 +16,22 @@ export default Ember.Controller.extend({
           id: language.id
         })
       });
+    },
+
+    saveRaw(){
+      if (Ember.isEmpty(this.get('rawValue'))){
+        return;
+      }
+      let currentProject = this.get('project');
+      let language = this.get('language');
+      this.get('request').ajax(`/languages/${language.id}/document`, {
+        type: 'PUT',
+        data: JSON.stringify({
+          project: currentProject,
+          params: JSON.parse(this.get('rawValue')),
+          id: language.id
+        })
+      });
     }
   }
 });

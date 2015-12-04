@@ -1,3 +1,6 @@
 <ul>
   {{json-edit json=language.data language=language saveLanguage="saveLanguage"}}
+
+  {{textarea value=rawValue}}
+  <button {{action 'saveRaw'}}> Save Raw </button>
 </ul>
