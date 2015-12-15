@@ -9,7 +9,6 @@ defmodule Trs.Api.V1.LanguagesController do
   def index(conn, %{"project" => project}) do
     record = Repo.get_by(Project, id: project)
     {body, status_code} = Trs.Couchdb.Utils.get_all_docs(record.title)
-    IO.inspect(status_code)
      conn
      |> put_status(status_code)
      |> json body

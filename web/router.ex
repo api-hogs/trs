@@ -35,6 +35,7 @@ defmodule Trs.Router do
     pipe_through :authenticated
     post "/languages", Api.V1.LanguagesController, :create
     put "/languages/:id", Api.V1.LanguagesController, :update
+    delete "/languages/:id", Api.V1.LanguagesController, :delete
     put "/languages/:id/document", Api.V1.LanguagesController, :document
   end
 

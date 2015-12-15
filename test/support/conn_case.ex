@@ -57,13 +57,9 @@ defmodule Trs.ConnCase do
 
       def create_document!(db, id, body) do
         path = "#{db}/#{id}"
-        delete_document!(db, id)
         Trs.Couchdb.Utils.create_doc(path, body)
       end
 
-      def delete_document!(db, id) do
-        Trs.Couchdb.Utils.delete_doc(db <> "/" <> id)
-      end
     end
   end
 
