@@ -51,7 +51,7 @@ deploy_api:
     - mkdir -p ~/.ssh
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - bundle install
-    - bundle exec cap staging deploy
+    - bundle exec cap production deploy
   only:
     - master
 
@@ -67,6 +67,6 @@ deploy_frontend:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - cd engines/ember
     - bundle install
-    - bundle exec cap staging deploy
+    - bundle exec cap production deploy
   only:
     - master
