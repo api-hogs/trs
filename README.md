@@ -1,5 +1,4 @@
 # Trs
-[![Build Status](https://travis-ci.org/api-hogs/trs.svg?branch=master)](https://travis-ci.org/api-hogs/trs)
 
 To start your Phoenix app:
 
