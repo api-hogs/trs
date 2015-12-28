@@ -40,33 +40,33 @@ specs:
     - mix ecto.migrate
     - mix test
 
-# deploy_api:
-#   stage: deploy_api
-#   image: ruby
-#   script:
-#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#     - eval $(ssh-agent -s)
-#     # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-#     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-#     - mkdir -p ~/.ssh
-#     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-#     - bundle install
-#     - bundle exec cap staging deploy
-#   only:
-#     - master
+deploy_api:
+  stage: deploy_api
+  image: ruby
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - bundle install
+    - bundle exec cap staging deploy
+  only:
+    - master
 
-# deploy_frontend:
-#   stage: deploy_frontend
-#   image: ruby
-#   script:
-#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-#     - eval $(ssh-agent -s)
-#     # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-#     - ssh-add <(echo "$SSH_PRIVATE_KEY")
-#     - mkdir -p ~/.ssh
-#     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-#     - cd engines/hundehjem
-#     - bundle install
-#     - bundle exec cap staging deploy
-#   only:
-#     - master
+deploy_frontend:
+  stage: deploy_frontend
+  image: ruby
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - cd engines/ember
+    - bundle install
+    - bundle exec cap staging deploy
+  only:
+    - master
