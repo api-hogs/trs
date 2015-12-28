@@ -25,9 +25,11 @@ specs:
     - git clone git://github.com/apache/couchdb.git
     - cd couchdb
     - git checkout 1.6.x
+    - ls -all
     - ./configure; make; make install
     - ls -all
     - ./bin/couchdb -b
+    - cd /builds/api-hogs/trs
     - rm -rf config/test.exs
     - cp config/test.exs.gitlab config/test.exs
     - mix local.hex --force
