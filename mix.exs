@@ -33,7 +33,7 @@ defmodule Trs.Mixfile do
     [{:phoenix, "~> 1.0.2"},
      {:phoenix_ecto, "~> 1.2.0"},
      {:postgrex, ">= 0.0.0"},
-     {:phoenix_token_auth, git: "git://github.com/romankuznietsov/phoenix_token_auth.git"},
+     {:phoenix_token_auth, git: "git://github.com/api-hogs/phoenix_token_auth.git", ref: "0c246a09979a7acf3bb6dc6b90cc5dcadfb85336"},
      {:ja_serializer, git: "git://github.com/AgilionApps/ja_serializer.git"},
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
