@@ -1,0 +1,60 @@
+variables:
+  REDIS_HOST: redis
+  POSTGRES_HOST: postgres
+  MIX_ENV: test
+
+stages:
+  - build
+  - test
+  - deploy_api
+  - deploy_frontend
+
+specs:
+  stage: test
+  image: coders51/elixir-postgres
+  services:
+    - redis
+    - postgres
+    - couchdb
+
+  script:
+    - rm -rf config/test.exs
+    - cp config/test.exs.gitlab config/test.exs
+    - mix local.hex --force
+    - mix local.rebar --force
+    - mix deps.get
+    - mix deps.compile
+    - mix ecto.create
+    - mix ecto.migrate
+    - mix test
+
+# deploy_api:
+#   stage: deploy_api
+#   image: ruby
+#   script:
+#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#     - eval $(ssh-agent -s)
+#     # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+#     - ssh-add <(echo "$SSH_PRIVATE_KEY")
+#     - mkdir -p ~/.ssh
+#     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+#     - bundle install
+#     - bundle exec cap staging deploy
+#   only:
+#     - master
+
+# deploy_frontend:
+#   stage: deploy_frontend
+#   image: ruby
+#   script:
+#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#     - eval $(ssh-agent -s)
+#     # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+#     - ssh-add <(echo "$SSH_PRIVATE_KEY")
+#     - mkdir -p ~/.ssh
+#     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+#     - cd engines/hundehjem
+#     - bundle install
+#     - bundle exec cap staging deploy
+#   only:
+#     - master
