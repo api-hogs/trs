@@ -15,9 +15,10 @@ specs:
   services:
     - redis
     - postgres
-    - couchdb
 
   script:
+    - apt-get install couchdb
+    - /etc/init.d/couchdb start -b
     - rm -rf config/test.exs
     - cp config/test.exs.gitlab config/test.exs
     - mix local.hex --force
