@@ -1,6 +1,6 @@
 # config valid only for Capistrano 3.1
 lock '3.4.0'
-set :repo_url, 'git@github.com:api-hogs/trs.git'
+set :repo_url, 'git@gitlab.api-hogs.io:api-hogs/trs.git'
 
 set :application, "#{fetch(:stage)}-trs-app"
 set :deploy_to,   "/var/www/#{fetch(:stage)}-trs-app"

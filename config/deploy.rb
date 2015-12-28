@@ -1,7 +1,7 @@
 lock '3.4.0'
 
 set :application, 'trs'
-set :repo_url, 'git@github.com:api-hogs/trs.git'
+set :repo_url, 'git@gitlab.api-hogs.io:api-hogs/trs.git'
 set :deploy_to, "/var/www/trs-#{fetch(:stage)}"
 set :default_env, {
                     'MIX_ENV' => fetch(:stage)
