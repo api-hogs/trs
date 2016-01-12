@@ -11,8 +11,9 @@ module.exports = function(defaults) {
     // Add options here
   });
 
-  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
-  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css.map');
+  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.min.css');
+  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap-theme.min.css');
+  app.import(app.bowerDirectory + '/bootstrap/dist/js/bootstrap.min.js');
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.js');
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.css');
 

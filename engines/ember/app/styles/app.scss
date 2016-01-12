@@ -1,9 +1,29 @@
 @import 'components/form.scss';
 
-body {
-  background-color: #eee;
-}
-
 .app {
   padding: 60px 15px 0;
 }
+
+body {padding: 50px 0px;}
+.navbar-brand img {height:50px; width: auto; margin:-15px 0 -15px -15px; display: inline-block;}
+.navbar-inverse .navbar-toggle { border-color: #777;}
+.index_block {
+	background: #ccc url(../images/bg1.jpg) 50% no-repeat;
+	background-size: cover;
+	padding: 36px 0;
+	position: relative;
+	z-index: 0;
+}
+.index_block:before { position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background: rgba(0,0,0,.3); content: '';}
+.index_text { width: 80%; color: #fff; position: relative; z-index: 1;}
+.navbar-fixed-bottom {padding: 10px 0; background: #F1F1F1;}
+.navbar-fixed-top .navbar-nav.navbar-right .btn {background: transparent;border-color: #aaa;color: #aaa;}
+.navbar-fixed-top .navbar-nav.navbar-right .btn:hover {border-color: #fff;color: #fff;}
+
+.items_list .btn { top: -2px;}
+.items_list a:first-of-type { margin-right: 20px;}
+.list-group-item .btn { opacity: .4; transition: all ease-in-out .2s;}
+.list-group-item:hover .btn { opacity: 1; }
+small.label { font-weight: normal; display: inline-block; margin: 0 10px}
+img.pull-left { padding-left: 0px;}
+img.pull-right { padding-right: 0px;}
