@@ -10,14 +10,7 @@ Router.map(function() {
   // OLD
 
   // this.route('sign_up', { path: '/signup'});
-  // this.route('projects', function() {
-  //   this.route('project', { path: ':project_id' }, function() {
-  //     this.route('language', { path: 'language/:language_id'});
-  //     this.route('edit');
-  //   });
-  //   this.route('new');
-  // });
-  this.route('signup');
+
   this.route('resend');
   this.route('confirmation');
   this.route('signin');
@@ -29,7 +22,15 @@ Router.map(function() {
   this.route('contacts');
   this.route('signin');
   this.route('signup');
-  this.route('projects');
+  
+  this.route('projects', function() {
+    this.route('index', { path: '/' }),
+    this.route('project', { path: ':project_id' }, function() {
+      this.route('language', { path: 'language/:language_id'});
+      this.route('edit');
+    });
+  });
+
 });
 
 export default Router;

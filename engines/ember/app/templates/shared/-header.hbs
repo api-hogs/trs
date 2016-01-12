@@ -17,10 +17,14 @@
         <li> {{#link-to 'contacts'}} Contacts {{/link-to}} </li>
       </ul>
 
-      <div class="navbar-form navbar-nav navbar-right btn-group" role="group" aria-label="...">
-        {{#link-to 'signin' class='btn btn-secondary-outline'}} Sign In {{/link-to}}
-        {{#link-to 'signup' class='btn'}} Sign Up {{/link-to}}
-      </div>
+      {{#if session.isAuthenticated}}
+        <a {{ action 'invalidateSession' }} class="btn">Logout</a>
+      {{else}}
+        <div class="navbar-form navbar-nav navbar-right btn-group" role="group" aria-label="...">
+          {{#link-to 'signin' class='btn btn-secondary-outline'}} Sign In {{/link-to}}
+          {{#link-to 'signup' class='btn'}} Sign Up {{/link-to}}
+        </div>
+      {{/if}}
     </div> 
 
   </div>

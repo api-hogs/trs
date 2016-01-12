@@ -9,5 +9,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
   setupController(controller, model) {
     controller.set('projects', model);
+    controller.set('project', this.get('store').createRecord('project'));
   }
 });
