@@ -2,6 +2,8 @@ defmodule Trs.Api.V1.ProjectsController do
   use Trs.Web, :controller
   alias Trs.Project
 
+  import Trs.Utils
+
   plug :scrub_params, "id" when action in [:show, :update, :delete]
   plug :scrub_params, "data" when action in [:create, :update]
 
@@ -23,7 +25,7 @@ defmodule Trs.Api.V1.ProjectsController do
     changeset = Project.changeset(%Project{user_id: conn.assigns.authenticated_user.id}, params)
     if changeset.valid? do
       record = Repo.insert!(changeset)
-      Trs.Couchdb.Http.request(:put, record.title)
+      Trs.Couchdb.Http.request(:put, Trs.Utils.snake_case_title(record.title))
       render(conn, "show.json-api", project: record)
     else
       conn
