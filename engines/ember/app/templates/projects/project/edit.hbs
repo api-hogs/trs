@@ -1,1 +1,17 @@
-{{partial 'projects/new'}}
+<div class="col col-xs-12 col-sm-9">
+  <h3>Edit project: {{project.title}}</h3> 
+  <hr>
+  <form>
+    <div class="form-group">
+      <label for="">Project title</label>
+      {{input type="text" value=project.title class="form-control" placeholder="Project Name"}}
+    </div>
+
+    <div class="form-group">
+      <label for="">Project description</label>
+      <textarea rows="10" class="form-control" placeholder="project description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success" {{action "save"}}>Save project</button>                
+  </form> 
+             
+</div>

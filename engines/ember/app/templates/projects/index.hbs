@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col col-xs-12">
       <h3>Projects
-        <button class="btn btn-success pull-right"  data-toggle="collapse" data-target="#addProject" aria-expanded="false" aria-controls="addProject">Add project</button> 
+        <button class="btn btn-success pull-right"  {{action "createRecord"}} data-toggle="collapse" data-target="#addProject" aria-expanded="false" aria-controls="addProject">Add project</button> 
       </h3>   
       <hr> 
 
@@ -11,7 +11,7 @@
           <div class="form-group">
             {{input value=project.title placeholder="Add Project" class="form-control"}}
           </div>
-          <button type="submit" class="btn btn-success" {{action "save"}}>Save</button>            
+          <button type="submit" class="btn btn-success" {{action "save"}} data-toggle="collapse" data-target="#addProject">Save</button>            
         </div>            
       </form>
     </div>
@@ -23,9 +23,9 @@
         {{#each projects as |project|}}
           {{#if project.title}}
             <li class="list-group-item">
-              <h4><small>25.11.2014</small> {{link-to project.title 'projects.project' project.id}}
+              <h4><small>25.11.2014</small> {{link-to project.title 'projects.project.show' project.id}}
                 {{link-to 'Edit' 'projects.project.edit' project.id class='btn btn-xs btn-info glyphicon glyphicon-pencil'}}
-                <button type="button" class="btn btn-xs btn-danger glyphicon glyphicon-remove" data-toggle="modal" data-target=".modal_del"></button>
+                <button type="button" class="btn btn-xs btn-danger glyphicon glyphicon-remove" data-toggle="modal" data-target=".modal_del" {{action "setIdToRemove" project.id}}></button>
               </h4>
             </li>
           {{/if}}  
@@ -43,7 +43,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button> 
-        <button type="button" {{action 'deleteProject' project}} class="btn btn-danger">Delete</button>
+        <button type="button" {{action 'deleteProject'}} data-dismiss="modal" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>

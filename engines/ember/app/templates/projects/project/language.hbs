@@ -1,6 +1,18 @@
-<ul>
-  {{json-edit json=language.data language=language saveLanguage="saveLanguage"}}
+<div class="col col-xs-12 col-sm-9">          
+  <h3>Language: EN</h3> 
+  <hr>
+  <form>
+    <div class="form-group">
+      {{json-edit json=language.data language=language saveLanguage="saveLanguage"}}
+    </div>
+  </form> 
+  <hr>
+  <form>
+    <div class="form-group">
+      <textarea rows="10" class="form-control" placeholder="RAW edit"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success" {{action 'saveRaw'}}>Save RAW</button>                
+  </form> 
 
-  {{textarea value=rawValue}}
-  <button {{action 'saveRaw'}}> Save Raw </button>
-</ul>
+</div>
+

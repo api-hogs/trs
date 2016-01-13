@@ -2,12 +2,8 @@ import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
-  request: Ember.inject.service(),
-  model() {
-    return this.get('store').findAll('project');
-  },
-
-  setupController(controller, model) {
-    controller.set('projects', model);
+  setupController(controller) {
+    const project = this.modelFor('projects.project').project;
+    controller.set('project', project);
   }
 });

@@ -6,9 +6,9 @@ export default Ember.Controller.extend({
 
   actions: {
     save() {
-     this.get('project').save().then(() => {
-       this.transitionToRoute('index');
-     });
+      this.get('project').save().then(() => {
+        this.transitionToRoute('projects.index');
+      });
     },
 
     addUser: function(){
