@@ -17,9 +17,15 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.js');
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.css');
 
+  var bootstrapFonts = pickFiles('bower_components/bootstrap/fonts', {
+    srcDir: '/',
+    destDir: '/fonts'
+  });
+
   var icons = pickFiles('bower_components/jsoneditor/dist/img', {
     srcDir: '/',
     destDir: '/assets/img'
   });
-  return mergeTrees([app.toTree(), icons]);
+
+  return mergeTrees([app.toTree(), bootstrapFonts, icons]);
 };

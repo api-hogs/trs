@@ -18,6 +18,7 @@ export default Ember.Controller.extend({
         this.set('inProcess', false);
       });
       console.log(this.get('session'));
+      this.transitionToRoute('index');
     }
   }
 });

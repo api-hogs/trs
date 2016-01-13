@@ -16,15 +16,15 @@
         <li> {{#link-to 'projects'}} Projects {{/link-to}} </li>
         <li> {{#link-to 'contacts'}} Contacts {{/link-to}} </li>
       </ul>
-
-      {{#if session.isAuthenticated}}
-        <a {{ action 'invalidateSession' }} class="btn">Logout</a>
-      {{else}}
-        <div class="navbar-form navbar-nav navbar-right btn-group" role="group" aria-label="...">
+      
+      <div class="navbar-form navbar-nav navbar-right btn-group" role="group" aria-label="...">
+        {{#if session.isAuthenticated}}
+          <a {{ action 'invalidateSession' }} class="btn">Logout</a>
+        {{else}}
           {{#link-to 'signin' class='btn btn-secondary-outline'}} Sign In {{/link-to}}
           {{#link-to 'signup' class='btn'}} Sign Up {{/link-to}}
-        </div>
-      {{/if}}
+        {{/if}}
+      </div>
     </div> 
 
   </div>
