@@ -9,7 +9,7 @@
 
     <div class="form-group">
       <label for="">Project description</label>
-      <textarea rows="10" class="form-control" placeholder="project description"></textarea>
+      {{textarea rows="10" class="form-control" placeholder="Project description" value=project.description}}
     </div>
     <button type="submit" class="btn btn-success" {{action "save"}}>Save project</button>                
   </form> 

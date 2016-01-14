@@ -32,7 +32,7 @@ export default Ember.Controller.extend({
     deleteLanguage: function(){
       let currentProject = this.get('project');
       let language = this.get('langToDelete');
-      this.get('request').ajax(`/languages/${language.title}`, {
+      this.get('request').ajax(`/languages/${language.id}`, {
         type: 'DELETE',
         data: JSON.stringify({
           project: currentProject.id

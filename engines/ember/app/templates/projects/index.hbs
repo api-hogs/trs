@@ -2,14 +2,14 @@
   <div class="row">
     <div class="col col-xs-12">
       <h3>Projects
-        <button class="btn btn-success pull-right"  {{action "createRecord"}} data-toggle="collapse" data-target="#addProject" aria-expanded="false" aria-controls="addProject">Add project</button> 
+        <button class="btn btn-success pull-right" data-toggle="collapse" data-target="#addProject" aria-expanded="false" aria-controls="addProject">Add project</button> 
       </h3>   
       <hr> 
 
       <form id="addProject" class="collapse">
         <div class="well">
           <div class="form-group">
-            {{input value=project.title placeholder="Add Project" class="form-control"}}
+            {{input value=projectTitle placeholder="Add Project" class="form-control"}}
           </div>
           <button type="submit" class="btn btn-success" {{action "save"}} data-toggle="collapse" data-target="#addProject">Save</button>            
         </div>            
