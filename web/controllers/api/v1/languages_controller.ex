@@ -10,7 +10,7 @@ defmodule Trs.Api.V1.LanguagesController do
 
   def index(conn, %{"project" => project}) do
     record = Repo.get_by(Project, id: project)
-    {body, status_code} = Trs.Couchdb.Utils.get_all_docs(Trs.Utils.snake_case_title(record.title))
+    {body, status_code} = Trs.Couchdb.Utils.get_all_docs(record.couchdb_name)
      conn
      |> put_status(status_code)
      |> json body
@@ -18,7 +18,7 @@ defmodule Trs.Api.V1.LanguagesController do
 
   def show(conn, %{"project" => project, "id" => id}) do
     record = Repo.get_by(Project, id: project)
-    {body, status_code} = Trs.Couchdb.Utils.get_doc(Trs.Utils.snake_case_title(record.title) <> "/" <> id)
+    {body, status_code} = Trs.Couchdb.Utils.get_doc(record.couchdb_name <> "/" <> id)
      conn
      |> put_status(status_code)
      |> json body
@@ -26,7 +26,7 @@ defmodule Trs.Api.V1.LanguagesController do
 
   def create(conn, %{"project" => project, "id" => id, "params" => params})do
     record = Repo.get_by(Project, user_id: conn.assigns.authenticated_user.id, id: project)
-    {body, status_code} = Trs.Couchdb.Utils.create_doc(Trs.Utils.snake_case_title(record.title) <> "/" <> id, params)
+    {body, status_code} = Trs.Couchdb.Utils.create_doc(record.couchdb_name <> "/" <> id, params)
      conn
      |> put_status(status_code)
      |> json body
@@ -34,7 +34,7 @@ defmodule Trs.Api.V1.LanguagesController do
 
   def update(conn, %{"project" => project, "id" => id, "params" => params}) do
     record = Repo.get_by(Project, user_id: conn.assigns.authenticated_user.id, id: project)
-    {body, status_code} = Trs.Couchdb.Utils.update_doc(Trs.Utils.snake_case_title(record.title) <> "/" <> id, params["key"], params["value"])
+    {body, status_code} = Trs.Couchdb.Utils.update_doc(record.couchdb_name <> "/" <> id, params["key"], params["value"])
      conn
      |> put_status(status_code)
      |> json body
@@ -42,7 +42,7 @@ defmodule Trs.Api.V1.LanguagesController do
 
   def delete(conn, %{"id" => id, "project" => project}) do
     record = Repo.get_by(Project, user_id: conn.assigns.authenticated_user.id, id: project)
-    {body, status_code} = Trs.Couchdb.Utils.delete_doc(Trs.Utils.snake_case_title(record.title) <> "/#{id}")
+    {body, status_code} = Trs.Couchdb.Utils.delete_doc(record.couchdb_name <> "/#{id}")
      conn
      |> put_status(status_code)
      |> json body
@@ -50,7 +50,7 @@ defmodule Trs.Api.V1.LanguagesController do
 
   def document(conn, %{"id" => id, "project" => project, "params" => params}) do
     record = Repo.get_by(Project, user_id: conn.assigns.authenticated_user.id, id: project)
-    {body, status_code} = Trs.Couchdb.Utils.update_doc(Trs.Utils.snake_case_title(record.title) <> "/" <> id, params)
+    {body, status_code} = Trs.Couchdb.Utils.update_doc(record.couchdb_name <> "/" <> id, params)
      conn
      |> put_status(status_code)
      |> json body

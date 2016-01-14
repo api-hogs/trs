@@ -4,6 +4,7 @@ defmodule Trs.Project do
   schema "projects" do
     field :title,                       :string
     field :description,                 :string
+    field :couchdb_name,                :string
     field :user_id,                     :integer
     field :authentication_tokens,       {:array, :string}, default: []
 

@@ -3,16 +3,20 @@ defmodule Trs.Api.V1.LanguagesControllerTest do
   alias Trs.Project
   alias Trs.User
   alias Trs.Repo
+  alias Trs.Utils
+
+  @project_title "title"
 
   setup do
     user_tmp = %User{email: "test@test.com", hashed_password: Util.crypto_provider.hashpwsalt("secrets"), confirmed_at: Ecto.DateTime.utc}
       |> Repo.insert!
     token_tmp = Authenticator.generate_token_for(user_tmp)
-    project = %Project{title: "test", user_id: user_tmp.id}
+    project = %Project{title: @project_title, user_id: user_tmp.id, couchdb_name: Utils.snake_case_title(@project_title)}
       |> Repo.insert!
 
-    Trs.Couchdb.Http.request(:delete, project.title)
-    Trs.Couchdb.Http.request(:put, project.title)
+    Trs.Couchdb.Http.request(:delete, project.couchdb_name)
+    Trs.Couchdb.Http.request(:put, project.couchdb_name)
+
     conn = conn()
             |> put_req_header("authorization", "Bearer #{token_tmp}")
 
