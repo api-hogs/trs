@@ -3,19 +3,16 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   request: Ember.inject.service(),
   session: Ember.inject.service(),
-  projectName: '',
-  projectDesc: '',
+
+  projectTitle: Ember.computed(function(){
+    return this.get('project.title');
+  }),
 
   actions: {
     save() {
-      let project = this.store.createRecord('project');
-      project.set('title', this.get('projectName'));
-      project.set('description', this.get('projectDesc'));
-      project.save().then(() => {
+      this.get('project').save().then(() => {
         this.transitionToRoute('projects.index');
       });
-      this.set('projectName', '');
-      this.set('projectDesc', '');
     },
 
     addUser: function(){
