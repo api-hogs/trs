@@ -11,7 +11,7 @@ defmodule Trs.Project do
   end
 
   @required_fields ~w(user_id title)
-  @optional_fields ~w()
+  @optional_fields ~w(description)
 
   def changeset(model, params \\ :empty) do
     model

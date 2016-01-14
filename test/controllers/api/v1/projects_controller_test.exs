@@ -41,14 +41,20 @@ defmodule Trs.Api.V1.ProjectsControllerTest do
 
   test "updates project", %{conn: conn, project: project} do
     conn = conn
-      |> put(projects_path(conn, :update, project.id), %{data: %{attributes: %{title: "title2"}}})
+      |> put(projects_path(conn, :update, project.id), %{data: %{attributes: %{title: "title2", description: "foo"}}})
       |> doc
+
+    %Project{title: new_title, description: new_description} = Repo.get(Project, project.id)
+
     assert json_api_response(conn, 200)
+    assert new_title == "title2"
+    assert new_description == "foo"
   end
 
   test "delete project", %{conn: conn, project: project} do
-    conn = conn
-            |> delete(projects_path(conn, :delete, project))
+    conn
+    |> delete(projects_path(conn, :delete, project))
+
     refute Repo.get(Project, project.id)
   end
 end
