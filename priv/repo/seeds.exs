@@ -36,7 +36,7 @@ end
 
 defmodule SeedProject do
   @title "Example project"
-  @couch_title Trs.Utils.snake_case_title(@title)
+  @couchdb_name Trs.Utils.snake_case_title(@title)
   @description "Example project"
 
   def truncate do
@@ -47,18 +47,18 @@ defmodule SeedProject do
   def populate() do
     users = Repo.all(User)
     Enum.each users, fn(user) ->
-      %Project{title: @title, description: @description, user_id: user.id}
+      %Project{title: @title, description: @description, user_id: user.id, couchdb_name: @couchdb_name}
       |> Repo.insert!
     end
     populate_couch
   end
 
   def truncate_couch do
-    Trs.Couchdb.Http.request(:delete, @couch_title)
+    Trs.Couchdb.Http.request(:delete, @couchdb_name)
   end
 
   def populate_couch do
-    Trs.Couchdb.Http.request(:put, @couch_title)
+    Trs.Couchdb.Http.request(:put, @couchdb_name)
   end
 end
 
