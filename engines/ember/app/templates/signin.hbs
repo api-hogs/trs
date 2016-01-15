@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-xs-12 col-sm-8 col-sm-offset-2">
+      <h3>Sign in
+        {{#link-to 'signup' class="pull-right"}} <small> Not registered? </small> {{/link-to}}
+      </h3>
+      <hr>
+
+      <form {{action 'authenticate' 'withDefault' on='submit'}}>
+        <div class="form-group">
+          {{input type="email" placeholder='Email' value=identification class="form-control"}}
+        </div>
+        <div class="form-group">
+          {{input type="password" placeholder='Your Password' value=password class="form-control"}}
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-success" value="Log In" disabled={{inProcess}}>
+        </div>
+      </form>
+
+    </div>  
+  </div>           
+</div>

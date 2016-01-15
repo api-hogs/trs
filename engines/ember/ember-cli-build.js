@@ -11,14 +11,21 @@ module.exports = function(defaults) {
     // Add options here
   });
 
-  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
-  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css.map');
+  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.min.css');
+  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap-theme.min.css');
+  app.import(app.bowerDirectory + '/bootstrap/dist/js/bootstrap.min.js');
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.js');
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.css');
+
+  var bootstrapFonts = pickFiles('bower_components/bootstrap/fonts', {
+    srcDir: '/',
+    destDir: '/fonts'
+  });
 
   var icons = pickFiles('bower_components/jsoneditor/dist/img', {
     srcDir: '/',
     destDir: '/assets/img'
   });
-  return mergeTrees([app.toTree(), icons]);
+
+  return mergeTrees([app.toTree(), bootstrapFonts, icons]);
 };

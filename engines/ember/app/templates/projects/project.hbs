@@ -1,24 +1,47 @@
-<div class="row">
-  <div class="col-md-3">
-
-    <h1>{{project.title}}</h1>
-
-    <h2>Languages</h2>
-    <div>
-      <ul>
+<div class="container">
+  <div class="row">
+    <div class="col col-xs-12 col-sm-3">
+      <h3><small>Languages</small> </h3>  
+      <hr>   
+      <ul class="list-group">
         {{#each languages as |language|}}
-          <li>
-              {{link-to language.id 'projects.project.language' project.id language.id}}
-              <a href="#" class="btn btn-danger" {{action 'deleteLanguage' language.id}}>Delete</a>
-          </li>
+          <li class="list-group-item">
+          {{#link-to 'projects.project.language' project.id language.id}} <strong>{{language.id}}</strong> {{/link-to}}
+            <button type="button" class="btn btn-xs btn-danger glyphicon glyphicon-remove pull-right" data-toggle="modal" data-target=".modal_del" {{action "setLangToRemove" language}}></button>
+          </li>       
         {{/each}}
-        {{add-language createLanguage="createLanguage"}}
-      </ul>
-    </div>
-  </div>
+      </ul>  
 
-  <div class="col-md-9">
+      <div class="form-group">           
+        <button type="button" class="btn btn-sm btn-info" data-toggle="collapse" data-target="#addLang" aria-expanded="false" aria-controls="addLang"><span class="glyphicon glyphicon-plus"></span> Add Language</button> 
+      </div>  
+
+      <form id="addLang" class="collapse">
+        <div class="well">
+          <div class="form-group">
+            {{input type="text" value=lang class="form-control" placeholder="Add Language"}}
+          </div>
+          <button type="submit" class="btn btn-success" data-toggle="collapse" data-target="#addLang" {{action "createLanguage"}}>Save</button>
+        </div>            
+      </form>
+
+    </div>
+
     {{outlet}}
-  </div>
+
+  </div>           
 </div>
 
+<div class="modal fade modal_del" tabindex="-1" role="dialog" >
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        Delete item?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button> 
+        <button type="button" class="btn btn-danger" data-dismiss="modal" {{action "deleteLanguage"}}>Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

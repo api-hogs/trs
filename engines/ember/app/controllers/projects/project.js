@@ -1,11 +1,20 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+
+  langToDelete: null,
+
   request: Ember.inject.service(),
   session: Ember.inject.service(),
 
   actions: {
-    createLanguage: function(language){
+
+    setLangToRemove(lang) {
+      this.set('langToDelete', lang);
+    },
+
+    createLanguage: function(){
+      let language = this.get('lang');
       let currentProject = this.get('project');
       this.get('request').ajax(`/languages`, {
         type: 'POST',
@@ -17,11 +26,13 @@ export default Ember.Controller.extend({
       }).then(() => {
         this.get('languages').pushObject({name: language, id: language,  data: {}});
       });
+      this.set('lang', '');
     },
 
-    deleteLanguage: function(language){
+    deleteLanguage: function(){
       let currentProject = this.get('project');
-      this.get('request').ajax(`/languages/${language.title}`, {
+      let language = this.get('langToDelete');
+      this.get('request').ajax(`/languages/${language.id}`, {
         type: 'DELETE',
         data: JSON.stringify({
           project: currentProject.id

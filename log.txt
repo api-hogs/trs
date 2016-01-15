@@ -1,0 +1,9 @@
+[Tue, 12 Jan 2016 15:58:07 GMT] [info] [<0.000.0>] pouchdb-server has started on http://127.0.0.1:15984/
+[Tue, 12 Jan 2016 15:58:07 GMT] [info] [<0.000.0>] navigate to http://127.0.0.1:15984/_utils for the Fauxton UI.
+[Tue, 12 Jan 2016 16:00:19 GMT] [info] [<0.000.0>] pouchdb-server has started on http://127.0.0.1:5984/
+[Tue, 12 Jan 2016 16:00:19 GMT] [info] [<0.000.0>] navigate to http://127.0.0.1:5984/_utils for the Fauxton UI.
+[Tue, 12 Jan 2016 16:00:59 GMT] [info] [<0.000.0>] 127.0.0.1 - - GET /Example+project/_all_docs?include_docs=true 404
+[Tue, 12 Jan 2016 16:01:16 GMT] [info] [<0.000.0>] 127.0.0.1 - - GET /new+project/_all_docs?include_docs=true 404
+[Tue, 12 Jan 2016 16:01:18 GMT] [info] [<0.000.0>] 127.0.0.1 - - GET /Some++new/_all_docs?include_docs=true 404
+[Tue, 12 Jan 2016 16:02:12 GMT] [info] [<0.000.0>] 127.0.0.1 - - GET /new+project/_all_docs?include_docs=true 404
+[Tue, 12 Jan 2016 16:02:13 GMT] [info] [<0.000.0>] 127.0.0.1 - - GET /Example+project/_all_docs?include_docs=true 404

@@ -6,18 +6,24 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('sign_up', { path: '/signup'});
-  this.route('projects', function() {
-    this.route('project', { path: ':project_id' }, function() {
-      this.route('language', { path: 'language/:language_id'});
-      this.route('edit');
-    });
-    this.route('new');
-  });
-  this.route('signup');
+
   this.route('resend');
   this.route('confirmation');
-  this.route('login');
+  this.route('signin');
+  this.route('index', { path: '/' });
+  this.route('about');
+  this.route('contacts');
+  this.route('signin');
+  this.route('signup');
+  this.route('projects', function() {
+    this.route('index', { path: '/' }),
+    this.route('project', { path: ':project_id'}, function() {
+      this.route('language', { path: 'language/:language_id'});
+      this.route('edit');
+      this.route('show');
+    });
+  });
+
 });
 
 export default Router;

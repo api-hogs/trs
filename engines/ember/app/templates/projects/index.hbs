@@ -1,19 +1,50 @@
-<h1>Projects</h1>
+<div class="container">
+  <div class="row">
+    <div class="col col-xs-12">
+      <h3>Projects
+        <button class="btn btn-success pull-right" data-toggle="collapse" data-target="#addProject" aria-expanded="false" aria-controls="addProject">Add project</button> 
+      </h3>   
+      <hr> 
 
-{{link-to 'Add project' 'projects.new' class='btn btn-success btn-large'}}
+      <form id="addProject" class="collapse">
+        <div class="well">
+          <div class="form-group">
+            {{input value=projectTitle placeholder="Add Project" class="form-control"}}
+          </div>
+          <button type="submit" class="btn btn-success" {{action "save"}} data-toggle="collapse" data-target="#addProject">Save</button>            
+        </div>            
+      </form>
+    </div>
+  </div>
 
-<ul>
-  {{#each projects as |project|}}
-    <li>
-      <h2>
-        {{link-to project.title 'projects.project' project.id}}
+  <div class="row">
+    <div class="col col-xs-12">
+      <ul class="list-group items_list">
+        {{#each projects as |project|}}
+          {{#if project.title}}
+            <li class="list-group-item">
+              <h4><small>25.11.2014</small> {{link-to project.title 'projects.project.show' project.id}}
+                {{link-to 'Edit' 'projects.project.edit' project.id class='btn btn-xs btn-info glyphicon glyphicon-pencil'}}
+                <button type="button" class="btn btn-xs btn-danger glyphicon glyphicon-remove" data-toggle="modal" data-target=".modal_del" {{action "setIdToRemove" project.id}}></button>
+              </h4>
+            </li>
+          {{/if}}  
+        {{/each}}
+      </ul>
+    </div>
+  </div>           
+</div>
 
-        <div class="btn-group">
-          {{link-to 'Edit' 'projects.project.edit' project.id class='btn btn-primary btn-xs'}}
-          <a href="#" {{action 'deleteProject' project}} class='btn btn-danger btn-xs'>Del</a>
-        </div>
-
-      </h2>
-    </li>
-  {{/each}}
-</ul>
+<div class="modal fade modal_del" tabindex="-1" role="dialog" >
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        Delete item?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button> 
+        <button type="button" {{action 'deleteProject'}} data-dismiss="modal" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

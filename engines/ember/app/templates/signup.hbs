@@ -1,24 +1,27 @@
-<div class="container col-sm-offset-4 col-sm-3">
-  <form class="form" {{action 'signup' 'withDefault' on='submit'}}>
-    <h2 clas="form-signin-heading">Sign up</h2>
-    {{input type="email" placeholder="Your Email" value=model.email class="form-control"}}
-    {{input type="password" placeholder="Your Password" value=model.password class="form-control"}}
-    {{#if model.errors}}
-      {{#each model.errors.email as |error|}}
-        <div class="error-message">
-          {{error-helper error}}
-        </div>
-      {{/each}}
-      {{#each model.errors.password as |error|}}
-        <div class="error-message">
-          {{error-helper  error}}
-        </div>
-      {{/each}}
-    {{/if}}
+<div class="container">
+  <div class="row">
+    <div class="col col-xs-12 col-sm-8 col-sm-offset-2">
+      <h3>Sign up
+        {{#link-to "signin" class="pull-right"}} <small> Already registered? </small> {{/link-to}}
+      </h3>
+      <hr>
 
-    <div class="input">
-      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign up" disabled={{inProcess}}>
-    </div>
-  </form>
+      <form {{action 'signup' 'withDefault' on='submit'}}>
+        <div class="form-group">
+          {{input type="email" placeholder="Your Email" value=model.email class="form-control"}}
+        </div>
+        <div class="form-group">
+          {{input type="password" placeholder="Your Password" value=model.password class="form-control"}}
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Retype password">
+        </div>
+        
+        <div class="form-group">
+          <input type="submit" class="btn btn-success" value="Register" disabled={{inProcess}}>
+        </div>
+      </form>
+
+    </div>  
+  </div>           
 </div>
-
