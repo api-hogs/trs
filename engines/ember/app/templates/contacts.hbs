@@ -14,7 +14,7 @@
         {{textarea value=model.message rows="10" placeholder="Message" class="form-control"}}
       </div>
       <div class="form-group">
-        <a href="mailto:opak.alexandr@gmail.com" class="btn btn-success">Contact Us</a>
+        <a href="mailto:opak.alexandr@gmail.com?subject={{model.subject}}&message={{model.message}}" class="btn btn-success" target="_blank">Contact Us</a>
       </div>
 
     </div>  

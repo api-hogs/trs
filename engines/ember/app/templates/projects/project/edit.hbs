@@ -11,7 +11,8 @@
       <label for="">Project description</label>
       {{textarea rows="10" class="form-control" placeholder="Project description" value=project.description}}
     </div>
-    <button type="submit" class="btn btn-success" {{action "save"}}>Save project</button>                
+    <button type="submit" class="btn btn-success" {{action "save"}}>Save project</button> 
+    {{link-to "Back" 'projects.project.show' project.id class="btn btn-danger"}}               
   </form> 
              
 </div>
