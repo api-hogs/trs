@@ -4,12 +4,10 @@ export default Ember.Controller.extend({
   request: Ember.inject.service(),
   session: Ember.inject.service(),
 
-  projectTitle: Ember.computed(function(){
-    return this.get('project.title');
-  }),
-
   actions: {
     save() {
+      this.set('project.title', this.get('projectTitle'));
+      this.set('projectTitle', '');
       this.get('project').save().then(() => {
         this.transitionToRoute('projects.index');
       });
