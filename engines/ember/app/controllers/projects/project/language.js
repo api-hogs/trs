@@ -24,6 +24,7 @@ export default Ember.Controller.extend({
       }
       let currentProject = this.get('project');
       let language = this.get('language');
+      console.log("Gello");
       this.get('request').ajax(`/languages/${language.id}/document`, {
         type: 'PUT',
         data: JSON.stringify({
